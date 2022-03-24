@@ -2,7 +2,7 @@ package airport.people;
 
 import airport.people.Person;
 
-public class Crew extends Person {
+public class Crew extends Person implements IWork {
     private String job;
 
     //region constructors
@@ -26,6 +26,11 @@ public class Crew extends Person {
 
     public void setJob(String job) {
         this.job = job;
+    }
+
+    @Override
+    public void goToWork() {
+        System.out.println("Going to work");
     }
 
     @Override

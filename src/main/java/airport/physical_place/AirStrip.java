@@ -1,5 +1,6 @@
 package airport.physical_place;
 
+import airport.exceptions.EmptyAirsTripException;
 import airport.fly.Plane;
 
 import java.util.LinkedList;
@@ -26,9 +27,11 @@ public class AirStrip {
         isEmpty = false;
     }
 
-    public Integer getFirstPlane() {
+    public Integer getFirstPlane() throws EmptyAirsTripException {
+        if (planes.isEmpty()) {
+            throw new EmptyAirsTripException("There isn't any plane in the air strip.");
+        }
         return planes.peek().getPlaneId();
     }
-
 
 }

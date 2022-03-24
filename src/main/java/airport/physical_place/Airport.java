@@ -1,14 +1,21 @@
 package airport.physical_place;
 
+import airport.exceptions.EmptyAirsTripException;
+import airport.exceptions.FollowingPlanesException;
+import airport.exceptions.NotPilotException;
+import airport.exceptions.NotPlaneException;
 import airport.fly.Pilot;
 import airport.fly.Plane;
 import airport.fly.Travel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Airport {
+    private static final Logger LOGGER = LogManager.getLogger(Airport.class);
     private ArrayList<Plane> planes = new ArrayList<>();
     private ArrayList<Pilot> pilots = new ArrayList<>();
     private Queue<Travel> travel = new LinkedList<>();
@@ -27,25 +34,26 @@ public class Airport {
     }
     //endregion
 
-    public void startTravel() {
+    public void startTravel() throws FollowingPlanesException, NotPlaneException, NotPilotException, EmptyAirsTripException {
         boolean travelCanStart = false;
         if (planes.size() > 0) {
             for (Plane plane : planes) {
                 if (plane.getPlaneId().equals(airStrip.getFirstPlane()) && plane.getPilot() != null) {
                     travelCanStart = true;
+                    plane.takeOff();
                     break;
                 }
             }
-            if (travelCanStart) {
-                planes.get(airStrip.getFirstPlane()).takeOff();
+            if (!travelCanStart) {
+                throw new NotPilotException("There isn't pilot to start the travel.");
             }
         } else {
-            System.out.println("The airport can't start the travel.");
+           throw new NotPlaneException("There isn't plane to start the travel.");
         }
     }
 
     //region plane CRUD
-    public void addPlane(Plane newPlane) {
+    public void addPlane (Plane newPlane) {
         planes.add(newPlane);
         airStrip.addPlanesQueue(newPlane);
     }

@@ -27,7 +27,7 @@ public class LoaderMachine extends Machine {
 
     public void loadLuggage(Integer luggageWeight) throws LoadCapacityException {
         if (getLoadCapacity() >= (getLoad() + luggageWeight)) {
-            throw new LoadCapacityException();
+            throw new LoadCapacityException("Load capacity was exceeded.");
         }
         setLoad(getLoad() + luggageWeight);
     }

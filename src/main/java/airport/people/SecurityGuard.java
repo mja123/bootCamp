@@ -2,7 +2,7 @@ package airport.people;
 
 import airport.people.Person;
 
-public class SecurityGuard extends Person {
+public class SecurityGuard extends Person implements IWork {
     private Boolean isInAPlane;
 
     //region constructors
@@ -21,6 +21,11 @@ public class SecurityGuard extends Person {
 
     public Boolean getInAPlane() {
         return isInAPlane;
+    }
+
+    @Override
+    public void goToWork() {
+        System.out.println("Going to work");
     }
 
     public void setInAPlane(Boolean inAPlane) {

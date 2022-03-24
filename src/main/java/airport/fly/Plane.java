@@ -1,12 +1,24 @@
 package airport.fly;
 
+import airport.exceptions.FollowingPlanesException;
+import airport.physical_place.ControlTower;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Objects;
+
 public class Plane {
+    private static final Logger LOGGER = LogManager.getLogger(Plane.class);
     private Pilot pilot;
     private String motor;
     private Integer planeId;
 
     //region constructors
     public Plane() {
+    }
+    public Plane(Pilot pilot, Integer planeId) {
+        this.pilot = pilot;
+        this.planeId = planeId;
     }
 
     public Plane(Pilot pilot, String motor, Integer planeId) {
@@ -18,12 +30,15 @@ public class Plane {
 
 
     //region fly
-    public void takeOff() {
-        System.out.println("The plane is taking off.");
+    public void takeOff() throws FollowingPlanesException {
+        ControlTower controlTower = new ControlTower();
+
+        controlTower.startFollowingPlane();
+        LOGGER.debug("The plane is taking off.");
     }
 
     public void arrive() {
-        System.out.println("The plane is arriving.");
+        LOGGER.debug("The plane is arriving.");
     }
     //endregion
 
@@ -63,7 +78,11 @@ public class Plane {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals((Plane)obj);
+        if (obj instanceof Plane) {
+            Plane plane = (Plane) obj;
+            return Objects.equals(this.planeId, plane.planeId);
+        }
+        return false;
     }
 
     @Override
