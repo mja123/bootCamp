@@ -1,2 +1,0 @@
-2022-03-24 19:00:55,163 DEBUG a.f.Plane [main] The plane is taking off.
-2022-03-24 19:00:55,168 ERROR a.Main [main] airport.exceptions.NotPlaneException: There isn't plane to start the travel.
