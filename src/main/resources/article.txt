@@ -1,0 +1,254 @@
+Stress detection using natural language processing and machine learning over social interactions
+Tanya Nijhawan, Girija Attigeri & T. Ananthakrishna 
+Journal of Big Data volume 9, Article number: 33 (2022) Cite this article
+
+403 Accesses
+
+Metricsdetails
+
+Abstract
+Cyberspace is a vast soapbox for people to post anything that they witness in their day-to-day lives. Social media content is mostly used for review, opinion, influence, or sentiment analysis. In this paper, we aim to extend sentiment and emotion analysis for detecting the stress of an individual based on the posts and comments shared by him/her on social networking platforms. We leverage large-scale datasets with tweets to accomplish sentiment analysis with the aid of machine learning algorithms and a deep learning model, BERT for sentiment classification. We also adopted Latent Dirichlet Allocation which is an unsupervised machine learning method for scanning a group of documents, recognizing the word and phrase patterns within them, and gathering word groups and alike expressions that most precisely illustrate a set of documents. This helps us to predict which topic is linked to the textual data. With the aid of these models, we will be able to detect the emotion of users online. Further, these emotions can be used to analyze stress or depression. In conclusion, the ML models and a BERT model have a very good detection rate. This research is useful for the well-being of one's mental health. The results are evaluated using various metrics at the macro and micro levels and indicate that the trained model detects the status of emotions based on social interactions.
+
+Introduction
+Currently, social media plays the role of chief public opinion detector. We have over 4.2 billion active worldwide social media users. With the whirlwind expansion of Web 2.0, people have developed a liking to express their thoughts and approach over the Internet, which has consequently resulted in an increase of user-generated content and self-opinionated data. Social Media Analytics (SMA) is the process of collecting information on various social media platforms, websites and blogs and evaluating that, to successful business decisions. The use of social media has become quite commonplace in today's world. SMA is not only a collection of likes and comments shared by people but also a platform for many advertising brands. There are six types of social networks where people connect and share their interests, opinions, experiences, and moments of life. Bookmarking sites allow users to have control over their resources. Social news: allows users to post news links and external articles, Media sharing: Share their videos and photographs, Microblogging: Allow users to write short written entries and Blogs and Forums: Allow users to produce focused content and then engage in conversations about it.
+
+SMA is the ability to gather data from these resources and find meaning from them, make decisions and evaluate the performance of the decisions through social media. For this SMA uses the concepts such as social media intelligence, social media listening, social media monitoring, social competitive analysis, image analytics, sentiment analysis, customer sentiment analysis. Many applications include marketing and making extensive use of social data to make predictive decisions. Some of the methods are built to create a hypothesis, deep penetration of data, mapping events, etc. These calculations can also be done in services such as business, amendment, education, machine learning-based predictions, etc. Especially now, data is controlling marketing approaches and tactics. The propagation of data is only expected to rise as more people and businesses plan on dispensing data about themselves on social media. It is in this material that a business will end up learning more about their audience, specifically on sites like Twitter, Facebook, and Instagram. With these insightful analytics, a person fundamentally gains social media intelligence to inform future decisions and actions. Currently, SMA is being used for influence, review, and opinion mining. However, it can be employed in analyzing the emotional state of a person. These social factors are important indicators of mental health. However, how to be quantifying and analyzing social factors is challenging. The data is usually unstructured and huge, which needs the techniques like Big data, Machine Learning (ML), Natural Language Processing (NLP) to get inferences for stress or other mental health issues. There are studies to show that constructive SMA to measure and quantify the social interaction along with other health parameters are used in healthcare systems for stress/depression detection [1].
+
+To perform the SMA data can be collected with the help of web scraping. Web scraping aids in extracting the underlying HTML code and, with it, the data deposited in a database. The scraper can then duplicate the complete website content elsewhere. Apart from this, with the help of applications like lucidya and trackmyhashtag, certain hashtags were tracked while creating the dataset. There are a lot of capable pre-trained language models which include the likes of ELMo and BERT. These models have specifically shown outstanding performance on aspect-based sentiment analysis problems [2]. The pre-trained language models have the advantage to learn universal language by pre-training on the vast unlabeled corpus to dodge overfitting on small-size data [3]. In this paper, we are using a proficient deep learning model titled BERT to resolve sentiment classification tasks. Experimentations have supported the claim that the BERT model outdoes other prevalent models for this task without a complex architecture. Hence, we use the BERT model to do a 5-class emotion classification. The emotions are joy, sadness, neutral, fear, and anger.
+
+Topic modeling is described as one of the most efficacious methods for detecting useful unseen structures in a corpus. It can be defined as a method that locates a group of words i.e., the topic from a group of documents that represents the information in the group [4]. By leveraging the topic modeling results we can represent, measure, and model user behavior patterns on large-scale social networks and even use such social information for further research. With the edge of using ML algorithms, a pre-trained model, and a high accuracy rate, this model will give accurate and reliable results. The idea of this paper is to come up with a system that not only detects stress but also analyses the topic of discussion in a particular tweet. Along with sentiment analysis, this system will also accurately analyze and segregate the user’s opinions on different topics. After carrying out in-depth studies on pertinent datasets we will attain crucial understandings of different correlations between social interactions and the tension/strain of the user.
+
+The contributions of the paper are as follows:
+
+Binary classification of the sentiments behind the tweets
+
+Perform topic modeling with the help of LDA which takes into consideration the density of every topic and calculates a topic structure through an iteration process.
+
+Emotion classification using deep learning-based BERT model to detect stress.
+
+Develop a Django-based web application that receives inputs from a user and then accordingly generates a prediction.
+
+Develop a system in the form of a web portal that not only detects stress but also analyses the topic of discussion in a particular tweet.
+
+Accurately analyze and segregate the user's opinions on different topics.
+
+Background and literature review
+A lot of astounding contributions have been made in the field of sentiment analysis in the past few years. Initially, sentiment analysis was proposed for a simple binary classification that allocates evaluations to bipolar classes. Pak and Paroubek [5] came up with a model that categorizes the tweets into three classes. The three classes were objective, positive and negative. In their research model, they started by generating a collection of data by accumulating tweets. They took advantage of the Twitter API and would routinely interpret the tweets based on emoticons used. Using that twitter corpus, they were able to construct a sentiment classifier. This classifier was built on the technique—Naive Bayes where they used N-gram and POS-tags. They did face a drawback where the training set turned out to be less proficient since it only contained tweets having emoticons. The papers [6,7,8,9,10] discuss effective data pre-processing techniques for social media content, specifically tweets. As the data contains the words which are most often used in a sentence but do not contribute to the analysis, such as stop words, symbols, punctuation marks. Removing these and converting different forms of the words to the base from is an essential step.
+
+Sentiment analysis
+Agarwal et al. [11] proposed a 3-way model for categorizing sentiments in three classes. The classes were positive, negative, and neutral. Models such as the unigram model, a feature constructed upon the model, and a tree kernel-based were used for testing. In the case of the tree kernel-centered model, tweets were chosen to be represented in the form of a tree. While implementing a feature-centered model over 100 features were taken into consideration. However, in the case of the unigram model, there were about 10,000 features. They concluded that features that end up combining previous polarization of words with their parts-of-speech (pos) tags are the most substantial. In terms of the result, the tree kernel-based model ended up performing better than the other two models.
+
+Certain challenges are made by a few researchers to classify public beliefs about movies, news, etc. from Twitter posts. V.M. Kiran et al. [12] utilized the data from other widely accessible databases like IMDB and Blippr after appropriate alterations to benefit Twitter sentiment analysis in the movie domain. Davidov et al. [13] projected a method to utilize Twitter user-defined hashtags in tweets as a classification of sentiment type using punctuation, single words, and patterns as disparate feature types. They are then combined into a single feature vector for the task of sentiment classification. They made use of the K-Nearest Neighbor approach to allocate sentiment labels by constructing a feature vector for each example in the training and test set. Tagging [14], in current times developed as a common way to sort out vast and vibrant web content. It usually refers to the act of correlating with or allocating some keyword or unit to a piece of data.
+
+Tagging aids to depict an article and lets it be located again by perusing. Scholars have established diverse methods and procedures for tagging corpus for numerous uses. Xiance et al. [15] offered a flexible and practical technique for the process of the recommendation of tags. They demonstrated documents and tags by implementing the tag-LDA model. Krestel et al. [16] recommended a method to customize the process of recommendation by tag. She proposed a method that amalgamates a probabilistic method of tags from the source. In this case, the tags were extracted from the user. She examined basic language models. Additionally, she performed LDA experimentations on a real-world dataset. The dataset was crawled from a vast tagging system which displayed that personalization progresses the process of tag recommendation.
+
+Pre-trained language models like ELMo [17], OpenAI GPT [18], and BERT [19] have proven to be extremely valuable. This has led to Natural Language Processing (NLP) passing into a new era. Transfer learning abilities permitted by pre-trained language models have helped a lot of researchers significantly. This has allowed the pre-trained model to play the role of the base, and this can be fine-tuned to respond to the NLP task. This process is better than performing the training of the model from the basics [20]. Zubair et al. [21] introduced a technique enhanced by lexicons. It was projected to be centered around a rule-based classification scheme. It was to be carried out by assimilating emojis, modifiers, and domain-specific terms to examine any thoughts published on social media. However, traditional methods emphasis on designing features has now reached its performance bottleneck [22]. On the other hand, pre-trained language models save a lot of time by achieving the same result quickly. They are easy to incorporate and there’s not as much labeled data required. However, these techniques need to be incorporated for mental health prediction with social and other parameters (Table 1).
+
+Table 1 Comparison of different approaches in sentiment analysis
+Full size table
+Stress/depression analysis
+Arya and Mishra present a review of the application of machine learning in the health sector, their limitation, predictive analysis, and challenges in the area and need advanced research and technologies. The authors reviewed papers on mental stress detection using ML that used social networking sites, blogs, discussion forums, Questioner technique, clinical dataset, real-time data, Bio-signal technology (ECG, EEG), a wireless device, and suicidal tendency. The study shows the high potential of ML algorithms in mental health [28]. Aldarwish et al used machine learning algorithms SVM and Naïve- Bayesian for Predicting stress from UGC- User Generated Content in Social media sites (Facebook, Twitter, Live Journal) They used social interaction stress datasets based on mood and negativism and BDI- questionnaire having 6773 posts, 2073 depressed, 4700 non-depressed posts (textual). They achieved an accuracy of 57% from SVM and 63% from Naïve- Bayesian. They also emphasized stress detection using big data techniques [29].
+
+Cho et al. presented the analysis of ML algorithms for diagnosing mental illness. They studied properties of mental health, techniques to identify, their limitations, and how ML algorithms are implemented. The authors considered SVM, GBM, KNN, Naïve Bayesian, KNN, Random Forest. The authors achieved 75% from the SVM classifier [30]. Reshma et.al proposed a Tensi Strength framework for detecting sentiment analysis on Twitter [31]. The authors considered SVM, NB, WSD, and n-gram techniques on large social media text for sentiment analysis and applied the Lexicon approach to detect stress and relaxation in large data set. The authors achieved 65% precision and 67% recall. Deshpande and Rao presented an emotion artificial intelligence technique to detect depression [32]. The authors collected 10,000 Tweet Using Twitter API. They applied SVM and Naïve Bayes machine learning algorithms and achieved F1 scores of 79% and 83% respectively. Zucco et al. presented a preliminary design of an integrating Sentiment Analysis (SA) and Affective Computing (AC) methodologies for depression conditions monitoring [33]. The authors described SA and AC analysis pipelines. They also presented main challenges such as online learning and stream analytics for real-time processing in the design and implementation of such a system. These can be overcome by using big data technology. The authors have not presented the final system and the results testing and validation. The literature for stress detection shows that the models used for prediction need improvement. The mental health prediction and monitoring also need to be combined with other health parameters such as eating, sleeping, physiological and other factors.
+
+Role of Big data in social media analytics
+Sohangir et al. emphasized that deep Learning is a valuable tool for big data [34]. It can be used to extract remarkable information hidden in big data, considering social networks data. They considered the stock market as the domain. The authors aim to build deep Learning models to improve the performance of sentiment analysis using Stock Tweets. Authors applied neural network models such as LSTM, doc2vec, and CNN. They concluded that the deep Learning model can be used effectively for financial sentiment analysis with big data analytics.
+
+Opinion mining is a significant area of NLP in big data utilizing data from social media. Applications are working on customer reviews, opinions for sentiment, influence analysis. Bandari and Bulusu used a clustering strategy for the classification of product reviews based on sentiment values [35]. Big data is filled with a volume of structured or unstructured data. The realization of online service depends on data from social media users, customers. Most of such data is voluminous and unstructured, hence requiring advanced techniques to handle big data such as Hadoop. Trupthi et al. proposed a feedback collection system based on structured query language [36]. The authors employed a decision tree for classifying reviews. A big data approach and machine learning algorithm are required for the efficient analysis of social media data. Hammou et al. proposed a neural network scheme in sentiment analysis; from this, they classified the customer emotions with high accuracy [37].
+
+Considering the literature review, the focus of the current research is to leverage social media content by applying machine learning and deep learning techniques to predict the emotional state of a user. Further, use the analysis to detect stress. These models along with other health parameters can be used in assessing the mental health of a patient.
+
+Research design and methodology
+The research makes use of both secondary and primary data sources. It is a cross-sectional study and combination of quantitative and qualitative methodologies to know the impact of social and emotions associated with the social media data and usefulness of the same. The research aims at building models for sentiment and emotion detection which can be used for stress management, the models are also tested on primary data. The focus of the paper is identifying the sentiment or emotions of a user concerning diverse topics or domains using Latent Dirichlet Allocation (LDA). A hybrid machine learning and deep learning models are built and executed to deliver the sentiment analysis using the data that incorporates a broad range of tweets. The block diagram of the recommended model is as given in Fig. 1. Before moving on to developing the analyzer, we first need to perform data cleaning by implementing the following steps. We perform tokenization, remove the unwanted patterns, remove the stop words, and perform stemming. A crucial measure in developing a classifier is determining the features of the input that are pertinent. Then proceed to understand how to encode those features. We extract feature vectors with the help of the Bag-of-words method. Once the data is ready, we build our machine learning model for sentiment analysis and emotion detection. These machine learning models predict sentiment or emotion. We use accuracy, F1 score, and confusion matrix throughout to assess our model’s performance.
+
+Fig. 1
+figure 1
+Sentiment Analysis Methodology
+
+Full size image
+Introduction to the dataset
+The dataset to train our ML model for binary sentiment analysis has 100042 tweets [38]. The dataset which we utilize possesses three columns: ‘id’, ‘sentiment label’, and ‘sentiment text’. The sentiment label can either be 0 for positive or 1 for negative. In the training dataset, we have three columns present. First is 'id' which is linked to the tweets in the given dataset. The next indicates the tweets collected from diverse sources where they indicate the tweet's polarity as positive or negative. The last is a tweet label. The first 15 tweets and labels are shown in Fig. 2. It can be observed that the tweets having words love, proud, new songs, blog are labeled as 0 and the tweets with words offended, lumpy are labeled as 1.
+
+Fig. 2
+figure 2
+Head of the sentiment analysis dataset (training)
+
+Full size image
+The dataset used to train the model for emotion classification has 7934 tweets [39]. This dataset has 3 columns namely ‘id’, ‘emotion’, and ‘text’. The emotions are as follows- joy, sadness, neutral, anger, and fear. Figure 3(a) shows the number of data entries in every class. Joy has the maximum number of data entries which are 2326 entries. The column details and some of the tweets with labels are shown in Fig. 3(b).
+
+Fig. 3
+figure 3
+Emotion classification dataset (a) Distribution (b) Head of the dataset
+
+Full size image
+Preprocessing of the dataset
+In data pre-processing, the aim is to perform data cleaning, data integration, data reduction, and data transformation. We start with removing unwanted patterns followed by removing the stop words and performing stemming. Before eliminating stop words, we need to perform tokenization as well. Stop words are words that commonly occur in any natural language. To analyze the textual data and construct natural language processing models we need to remove stop words. Stop words don’t add much significance to the meaning of the document. Words like “is”, “a”, “on”, and “the” add no meaning to the statement while parsing it so these stop words. Now after this stemming is performed. Stemming plays a pivotal role in the pipelining course in Natural language processing. The input to the stemmer always needs to be tokenized words. This paper takes the aid of the Bag-of-Words method for feature extraction. It is a technique used to extract features from textual documents. The features can be further utilized for training various ML techniques. It creates a vocabulary of all the distinctive words present in all the documents in the training set. After this, the first task is to split the dataset into training and validation set so that the training and testing of our model can begin before applying it to predict unseen and unlabeled test data.
+
+Topic modelling with LDA
+The methodology in LDA first constitutes data pre-processing as shown in Fig. 4. A dictionary is created containing the number of times a word appears in the training set and all the anomalies are filtered out. For every document, a dictionary is created reporting how many words and how many times those words appear. LDA has three important hyperparameters. The first one is ‘alpha’ which outlines a document-topic density factor. The second one is ‘beta’ which denotes word density in a topic. The third one is ‘k', or the number of components signifying the number of topics the document is to be clustered or divided.
+
+Fig. 4
+figure 4
+LDA Architecture
+
+Full size image
+Binary sentiment classification
+Supervised learning problems can branch into two categories which are regression and classification problems. The problem which the paper addresses come under the classification category because we must classify our results into either the Positive or Negative class. Three models are implemented which are Logistic Regression, Decision Trees, and Random Forest. Pseudocodes of these algorithms are shown in Algorithm 1, 2, and 3. Their performance is compared, and the best possible model is chosen. We used accuracy, F1 score, and confusion matrix throughout to assess our model’s performance. Random Forest has the best accuracy and does well in all the other parameters as well when in comparison to the other models.
+
+figure a
+figure b
+figure c
+Emotion analysis with BERT model
+After loading the BERT Classifier and Tokenizer along with the Input modules. The configuration of the loaded BERT model and the fine-tuning to make it ready to make further predictions begins. In this paper, the BERT model has been trained using ktrain to recognize the emotion on text. Text classification is performed with the help of the ktrain library. As shown in Fig. 5, BERT utilizes the features of a Transformer, a capable structure that studies contextual relations in a text with regards to words. In its plain arrangement, a transformer comprises two distinct mechanisms. The first mechanism is an encoder that peruses the input. The second mechanism is a decoder that induces a prediction for the respective assignment. In contrast to directional models, which peruse the input successively, the whole arrangement of words is delivered at once by the Transformer encoder. Hence, it is regarded as a bidirectional model. However, it is more precise to state it non-directional.
+
+Fig. 5
+figure 5
+BERT Architecture
+
+Full size image
+Results and discussion
+In this section, we present exploratory analysis, results of topic modeling, binary sentiment analysis using ML algorithms, and emotion detection using the BERT model.
+
+Data exploratory analysis
+Figure 6 shows an exploratory analysis of the tweets. Figure 6 depicts the positive and negative tweets in the training dataset. Over here ‘0’ denotes positive tweet and ‘1’ denotes negative tweet. We can observe there are more than 50000 positive tweets and around 40000 negative tweets in the sentiment analysis dataset. In Fig. 7 we are checking the distribution of tweets in the training and testing dataset. The training dataset is shown in pink color whereas the testing dataset is shown in orange color. This graph denotes that there are more tweets in the training dataset and the length is between 0 and 200 characters for both datasets (Fig. 7).
+
+Fig. 6
+figure 6
+Number of Negative and Positive Tweets in the training dataset
+
+Full size image
+Fig. 7
+figure 7
+Distribution of tweets in the training and testing dataset
+
+Full size image
+In the bar plot shown in Fig. 8, we can observe the thirty most frequently occurring words. We perform this with the help of the CountVectorizer function. We can observe that the word quot occurs more than 8000 times in the dataset. The word quot is followed by just, good, and like respectively. Word Cloud is the kind of visualization where the most recurrent words are showcased in bigger sizes and the less recurrent words are showcased in relatively small sizes. In Python, we have a package for producing WordCloud. In this paper, we have showcased the top 30 most recurring words in my dataset with the help of WordCloud and Bar plots. The WordCloud in Fig. 9 shows the 30 most frequently occurring words. In WordCloud the word occurring the most commonly appears the largest. Since quot is most recurring it is shown to be the biggest here.
+
+Fig. 8
+figure 8
+Top 30 most frequently occurring words
+
+Full size image
+Fig. 9
+figure 9
+WordCloud (a) top 30 words (b) most recurring positive words
+
+Full size image
+Topic modelling LDA
+Topic modeling results are shown in Fig. 10. It depicts the top 10 models and the cluster of words falling each of the topics. We can observe that 0, 1 and 2 are related the college life and some words depict the sad status. Topic modeling is beneficial, but it’s tough to comprehend it just by having a glance at the combination of words and statistics. One of the most efficacious ways to interpret data is done with the assistance of visualization. We used PyLDAvis collaborative LDA visualization python package to visualize topic modeling results. PyLDAvis permits us to comprehend the subjects in a topic model. With the assistance of this package, we get to realize the most recurring words in every individual topic along with their occurrence. Moreover, it even demonstrates how related are the topic to each other.
+
+Fig. 10
+figure 10figure 10
+Topic Modelling LDA results (a) topic 1 to topic 4 (b) topic 5 to topic 8 (c) topic 9 to topic 10
+
+Full size image
+Each bubble in PyLDAvis indicates a topic. The bigger the bubble, the higher fraction of the number of tweets in the corpus is concerning that topic. Blue bars signify the general frequency of each word in the corpus. If no topic is chosen, the blue bars of the most used words will be shown. Red bars give the projected number of times a given term was produced by a given topic. We can conclude from the graph shown in Fig. 11, that the words sad, school, and food are the most recurring words in the dataset. Visualization for topics 1, 3, and 5 can be seen in Figures 12, 13, and 14. This is a very good interpretation to understand the overall orientation of the tweets and sentiments. It is a way to explore the tweets. Further, these topics can also be used to group and label the group of words. With topic modeling analysis of tweets, we could interpret that most of the tweets are belonging to student life with neutral and sad emotions.
+
+Fig. 11
+figure 11
+Representation of the top salient terms in the dataset
+
+Full size image
+Fig. 12
+figure 12
+Topic 1’s most frequent words (marked in red)
+
+Full size image
+Fig. 13
+figure 13
+Topic 3’s most frequent words (marked in red)
+
+Full size image
+Fig. 14
+figure 14
+Topic 5’s most relevant words
+
+Full size image
+Binary sentiment analysis
+The sample tweets from the binary sentiment dataset are labeled as ‘0’ or ‘1’ where 0 stands for positive sentiment and 1 stands for negative sentiment as shown in Figures 15 and 16. For example, the tweets having words like “love”, “thank”, “welcome” etc. have the label ‘0’ and tweets with words “insecure”, “lumpy”, “devasted” etc. are labeled as ‘1’. These tweets are pre-processed and are given to ML models for training. Figure 17 depicts the evaluation metrics for trained models built using logistic regression, decision tree, and random forest. The ML algorithms are implemented in 10 randomized experimental runs. We concluded that Random Forest Classifier is a better model than Logistic Regression and Decision Trees due to a high accuracy which was 97.78% on the test dataset. Hence, it is used in the final framework. Predictions obtained for training data using random Forest are shown in Fig. 18. The tweets which are marked as negative need further analysis for stress conditions. In the initial and predicted labels, most of the neutral tweets are classified as positive, hence it will not affect identifying the stress conditions. To confirm this, we also implemented the Vader algorithm which classifies tweets into positive, negative, and neutral using a sentiment dictionary. The output of the Vader sentiment analysis is shown in Fig. 19. It can be observed that compound values are from −1 to 1 and values between −0.5 to 0.5 are identified as neutral. We also tested the random forest model for random tweets and one of the outputs where the tweet is classified as positive is shown in Fig. 20.
+
+Fig. 15
+figure 15
+Tweets with label 0 in the training set
+
+Full size image
+Fig. 16
+figure 16
+Tweets with label ‘1’ in the training set
+
+Full size image
+Fig. 17
+figure 17
+Evaluation metric for binary classification on training data for ML models
+
+Full size image
+Fig. 18
+figure 18
+Output Excel file after Binary Sentiment Analysis using Random Forest
+
+Full size image
+Fig. 19
+figure 19
+Output Excel file after Binary Sentiment Analysis using Vader Algorithm
+
+Full size image
+Fig. 20
+figure 20
+Sentiment Analysis of a tweet
+
+Full size image
+BERT model results
+Since the emotion classifier has 5 classes namely- joy, sad, neutral, angry, and fear. It will be categorizing the tweets in those emotions only. The training of the model and accuracies obtained at different epochs are shown in Fig. 21. It can be observed that the training accuracy of the BERT model after using one cycle policy at a learning rate of 0.00002 is 94%. The evaluation of the model on the test set of 6000 tweets is shown in Fig. 22. The figure depicts micro evaluation metrics: accuracy, F1 score, precision, recall, and sensitivity for each class. It can be observed that the model has a good F1-score and accuracy for all the classes. The model has a macro average accuracy of 94%, and a macro F1-score of 83%. It indicates that the model is not overfitting.
+
+Fig. 21
+figure 21
+Bert model created with an accuracy of 94 percent for overall classification (Macro)
+
+Full size image
+Fig. 22
+figure 22
+Performance evaluation of test set using BERT model (Micro level)
+
+Full size image
+The web portal is designed for topic modeling and emotion detection. The model is used to classify emotions in the web portal. Figures 23, 24, 25, 26, 27 indicate the classification of the emotion for the post given as input. These depict the prediction after entering the text. The figures depict the output for each of the emotions for corresponding input texts entered as input. When the input is classified as negative. Sadness, anger, or fear, we further analyze more tweets to classify the user as stressed.
+
+Fig. 23
+figure 23
+Neutral Tweet with the time taken 85 s
+
+Full size image
+Fig. 24
+figure 24
+Joy Tweet with the time taken 5 s
+
+Full size image
+Fig. 25
+figure 25
+Sadness Tweet with the time taken 5 s
+
+Full size image
+Fig. 26
+figure 26
+Anger Tweet with the time taken 5 s
+
+Full size image
+Fig. 27
+figure 27
+Fear Tweet with the time taken 5 s
+
+Full size image
+Conclusion
+Sentiment and emotion analysis is an area of learning to examine opinions expressed in the text on numerous social media websites. In this paper, we presented the exploratory analysis of user tweets using LDA topic modeling and visualization. We emphasized the importance of data visualizations as it helps us in getting an apt understanding of our data. In this research work, extracted tweets are analyzed by using LDA to settle on the number of topics and the percentage of a word in a specific topic. The outcomes presented that the extracted topics display a significant structure in the data. We applied and evaluated machine learning algorithms for sentiment analysis, the BERT model for emotion analysis. Models are fine-tuned for the sentiment classification task of 5 different classes—Joy, Sadness, Neutral, Anger, and Fear. We have verified the classification competence in NLP supported by deep contextual language models like BERT with an accuracy of 94%. The paper aimed to employ these techniques for detecting users' mental stress from twitter's social media facts and figures. After implementing 3 machine learning techniques in the overall of 10 randomized experimental runs, we concluded that Random Forest Classifier is a better algorithm than Logistic Regression and Decision Trees with an accuracy of 97.78%. We developed a web portal that takes the text posted by the user as the input and identifies the emotion. The portal has shown accurate classifications for any given tweet. The work can be further extended by combining other health parameters to monitor mental health.
+
+Future work
+Effectual analysis of policy opinionated content
+The future scope of the paper is to develop a system that not only detects stress but also analyses the topic of discussion in a particular tweet. This could work as a survey system. It would provide a better solution on every debatable topic and tell the popular choice/verdict in areas like politics and news. This will help us efficiently analyze stress and express opinions for prevailing social issues.
+
+Detection of spam and non-spam tweets
+This paper could help analyze if a tweet is spam or non-spam. This could potentially help naïve Twitter users be aware of spam accounts which could be harmful to a lot of Twitter users. The non–spam tweets can also be further classified to make sure the ones which are damaging are removed from the Twitter platform.
+
+Improving sentiment word identification algorithm
+With social media, there are a lot of impediments. A tweet can have abbreviations, slang, and jargon which is difficult to interpret. This project can be further used to perform analysis on short sentences and abbreviations to get a better idea. Additionally, people should work on the generation of a high content lexicon database. There should also be successful handling of bi-polar sentiments. All these features combined would help develop an astounding analyzing tool.
+
+Dynamic topic model
+A Dynamic Topic Model will examine the fluctuations of subjects done over time; it is likewise important to consider the addition of time-varying information. Executing a topic modeling outline that will allow the incorporation of supplementary data will produce an advantageous potential in the turf of publicizing research. Additionally, integrating some method of direction during topic generation can help interpret the derivative solutions.

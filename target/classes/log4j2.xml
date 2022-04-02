@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration status="DEBUG">
     <Appenders>
         <Console name="LogToConsole" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
@@ -10,6 +10,11 @@
             </PatternLayout>
         </File>
         <File name ="LogToFileCollection" fileName="logs/com.solvd.solvdPractice.collections.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name ="LogToFileApacheUtils" fileName="logs/com.solvd.solvdPractice.apacheUtils.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
@@ -32,7 +37,14 @@
             <AppenderRef ref="LogToFileCollection"/>
         </Logger>
 
+        <Logger name="com.solvd.solvdPractice.apacheUtils" level="info" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="com.solvd.solvdPractice.apacheUtils" level="error" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+            <AppenderRef ref="LogToFileApacheUtils"/>
+        </Logger>
+
     </Loggers>
 
 </Configuration>
-
