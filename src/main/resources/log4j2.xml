@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="DEBUG">
+<Configuration status="WARN">
     <Appenders>
         <Console name="LogToConsole" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <File name="LogToFileAirport" fileName="logs/com.solvd.solvdPractice.airport.log">
+        <File name="LogToFileAirport" fileName="${sys:logs:-logs}/airport.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
-        <File name ="LogToFileCollection" fileName="logs/com.solvd.solvdPractice.collections.log">
+        <File name ="LogToFileCollection" fileName="${sys:logs:-logs}/collections.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
-        <File name ="LogToFileApacheUtils" fileName="logs/com.solvd.solvdPractice.apacheUtils.log">
+        <File name ="LogToFileErrorApacheUtils" fileName="${sys:logs:-logs}/apacheUtils/error.log">
+            <LevelRangeFilter minLevel="ERROR" maxLevel="FATAL" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name ="LogToFileInfoApacheUtils" fileName="${sys:logs:-logs}/apacheUtils/info.log">
+            <LevelRangeFilter minLevel="TRACE" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
@@ -27,23 +34,22 @@
             <AppenderRef ref="LogToConsole"/>
             <AppenderRef ref="LogToFileAirport"/>
         </Logger>
-
-        <Root level="error">
-            <AppenderRef ref="LogToConsole"/>
-            <AppenderRef ref="LogToFileAirport"/>
-        </Root>
         <Logger name="com.solvd.solvdPractice.collections" level="debug" additivity="false">
             <AppenderRef ref="LogToConsole"/>
             <AppenderRef ref="LogToFileCollection"/>
         </Logger>
 
-        <Logger name="com.solvd.solvdPractice.apacheUtils" level="info" additivity="false">
+        <Logger name="com.solvd.solvdPractice.apacheUtils" additivity="false">
+            <AppenderRef ref="LogToFileInfoApacheUtils"/>
+            <AppenderRef ref="LogToFileErrorApacheUtils"/>
             <AppenderRef ref="LogToConsole"/>
         </Logger>
-        <Logger name="com.solvd.solvdPractice.apacheUtils" level="error" additivity="false">
+
+        <Root level="error">
             <AppenderRef ref="LogToConsole"/>
-            <AppenderRef ref="LogToFileApacheUtils"/>
-        </Logger>
+            <AppenderRef ref="LogToFileAirport"/>
+        </Root>
+
 
     </Loggers>
 
