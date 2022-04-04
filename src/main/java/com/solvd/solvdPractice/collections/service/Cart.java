@@ -31,7 +31,8 @@ public class Cart {
         if (!(products.size() > 0)) {
             throw new EmptyCartException("There aren't products in the cart.");
         }
-        products.forEach(p -> LOGGER.trace("Name: " + p.getName() + ", id: " +
+        //change for logger
+        products.forEach(p -> System.out.println("Name: " + p.getName() + ", id: " +
                 p.getProductId() + ", price: " + p.getPrice()));
     }
 

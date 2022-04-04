@@ -1,0 +1,46 @@
+2022-04-04 08:07:12,811 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 08:07:12,813 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 08:07:59,340 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 08:07:59,347 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 08:10:08,699 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 08:10:08,704 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 08:10:08,705 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 08:10:54,807 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 08:16:50,438 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 08:16:50,447 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 08:16:50,447 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 08:18:28,676 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 08:18:28,680 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 08:18:28,681 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 09:15:39,109 ERROR c.s.s.c.mainProgram [main] All boxes are serving.
+2022-04-04 09:15:39,111 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:15:39,112 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:15:39,113 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 09:18:17,838 ERROR c.s.s.c.mainProgram [main] All boxes are serving.
+2022-04-04 09:18:17,841 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:18:17,842 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:18:17,842 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 09:22:40,659 ERROR c.s.s.c.mainProgram [main] All boxes are serving.
+2022-04-04 09:22:40,663 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:22:40,665 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:22:40,665 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 09:46:49,498 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:46:49,504 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:46:49,504 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 09:49:55,268 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-04 09:49:55,271 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:49:55,272 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:49:55,273 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 09:51:57,682 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-04 09:51:57,684 ERROR c.s.s.c.mainProgram [main] All boxes are serving.
+2022-04-04 09:51:57,684 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:51:57,686 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:51:57,686 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 09:53:39,064 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-04 09:53:39,067 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:53:39,068 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:53:39,068 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-04 09:54:58,237 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-04 09:54:58,242 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:54:58,244 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-04 09:54:58,245 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.

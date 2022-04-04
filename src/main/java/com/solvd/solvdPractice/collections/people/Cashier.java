@@ -13,13 +13,16 @@ public class Cashier extends Crew {
     }
 
     public void prepareToStartWorking() {
-        LOGGER.trace("Taking on the cash register.");
+        System.out.println("Tuning on the cash register.");
+        //LOGGER.trace("Tuning on the cash register.");
     }
     public void startWorking() {
-        LOGGER.trace("Charging to clients");
+        System.out.println("Charging to clients");
+        //LOGGER.trace("Charging to clients");
     }
     public void finishWork() {
-        LOGGER.trace("Closing cash register, counting the money.");
+        System.out.println("Turning off the cash register, counting the money.");
+        //LOGGER.trace("Tuning the cash register, counting the money.");
     }
 
     public Integer getCashierId() {
