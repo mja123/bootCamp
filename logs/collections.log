@@ -44,3 +44,239 @@
 2022-04-04 09:54:58,242 ERROR c.s.s.c.mainProgram [main] Product not found.
 2022-04-04 09:54:58,244 ERROR c.s.s.c.mainProgram [main] Product not found.
 2022-04-04 09:54:58,245 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-06 14:13:27,376 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 14:13:27,379 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 14:13:27,381 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 14:13:27,382 ERROR c.s.s.c.mainProgram [main] There aren't products in the cart.
+2022-04-06 16:16:11,966 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 16:18:38,155 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 16:49:08,868 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 16:49:08,877 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 16:49:08,878 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 16:50:47,157 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 16:50:47,160 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 16:50:47,160 ERROR c.s.s.c.mainProgram [main] Product not found. asd
+2022-04-06 16:52:30,040 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 16:52:30,044 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 16:56:27,255 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 16:56:27,259 INFO c.s.s.c.s.Cart [main] Name: Shampoo
+2022-04-06 16:56:27,259 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 16:57:01,974 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 16:57:01,977 INFO c.s.s.c.s.Cart [main] Name: 2
+2022-04-06 16:57:01,978 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 16:57:19,372 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 16:57:19,374 INFO c.s.s.c.s.Cart [main] Name: 2
+2022-04-06 16:58:14,908 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 16:58:14,914 INFO c.s.s.c.s.Cart [main] Name: 2
+2022-04-06 16:58:14,915 INFO c.s.s.c.mainProgram [main] Shampoo
+2022-04-06 17:07:03,683 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 17:07:03,688 ERROR c.s.s.c.mainProgram [main] null
+2022-04-06 17:07:03,690 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:07:03,690 ERROR c.s.s.c.mainProgram [main] null
+2022-04-06 17:52:40,828 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 17:52:40,832 ERROR c.s.s.c.mainProgram [main] null
+2022-04-06 17:52:40,833 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:52:40,833 ERROR c.s.s.c.mainProgram [main] null
+2022-04-06 17:53:12,500 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 17:53:12,502 ERROR c.s.s.c.mainProgram [main] null
+2022-04-06 17:53:12,503 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:53:12,503 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 17:54:51,074 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 17:54:51,078 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 17:54:51,079 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:54:51,079 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 17:56:15,776 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 17:56:15,781 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:56:15,782 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 17:56:15,782 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:56:15,782 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 17:57:18,058 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 17:57:18,063 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:57:18,064 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 17:57:18,064 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:57:18,064 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 17:58:00,076 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 17:58:00,084 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:58:00,086 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 17:58:00,087 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:58:00,087 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 17:58:49,500 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 17:58:49,506 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:58:49,506 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 17:58:49,507 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:58:49,507 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 17:59:02,672 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 17:59:02,677 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:59:02,678 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 17:59:02,678 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 17:59:02,679 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 18:00:58,137 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:00:58,140 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:00:58,141 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 18:00:58,141 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:00:58,141 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 18:01:09,844 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:01:09,850 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:01:09,850 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 18:01:09,850 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:01:09,850 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 18:01:35,786 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:01:35,792 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:01:35,793 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 18:01:35,793 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:01:35,793 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 18:02:13,685 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:02:13,693 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:02:13,693 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 18:02:13,694 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:02:13,694 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 18:03:11,945 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:03:11,952 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:03:11,952 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 18:03:11,953 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:03:11,953 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 18:04:47,334 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:04:47,339 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:04:47,340 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 18:04:47,340 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:04:47,340 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 18:05:56,774 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:05:56,780 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:09:10,330 ERROR c.s.s.c.mainProgram [main] null error id
+2022-04-06 18:09:29,647 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:10:23,548 ERROR c.s.s.c.mainProgram [main] null#$
+2022-04-06 18:10:32,981 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:10:32,986 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:10:32,986 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:10:32,986 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:10:32,987 ERROR c.s.s.c.mainProgram [main] Element not found.#$
+2022-04-06 18:11:08,701 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:11:08,705 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:11:08,706 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:11:08,706 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:11:08,706 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:12:32,086 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:12:32,091 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:12:41,302 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:13:13,116 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:13:48,824 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:13:51,634 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:13:51,639 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:13:51,639 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:14:44,477 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:16:18,733 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:17:55,255 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:17:55,260 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:17:55,260 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:17:55,260 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:17:55,260 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:18:11,251 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:18:11,256 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:18:11,256 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:18:11,256 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:18:11,256 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:21:37,615 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:21:37,618 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:21:37,618 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:21:37,618 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:21:37,619 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:22:24,145 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:22:24,148 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:22:24,148 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:24:31,624 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:24:31,625 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:24:57,154 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:24:57,161 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:24:57,161 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:28:16,705 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:28:17,984 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:28:23,009 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:28:23,013 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:28:23,013 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:29:31,454 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:30:32,162 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:30:55,291 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:30:55,295 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:30:55,295 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:30:55,295 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:30:55,296 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:31:29,298 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:31:29,306 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:31:29,306 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:32:01,002 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:32:41,661 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:32:57,445 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:32:57,449 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:32:57,449 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:33:13,785 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:34:42,916 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:35:46,963 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:35:46,967 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:35:46,967 ERROR c.s.s.c.mainProgram [main] Product not found. error id
+2022-04-06 18:35:46,967 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:35:46,968 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:38:12,827 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:38:12,833 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:38:12,833 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 18:38:37,669 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:38:37,670 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:43:25,143 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:43:25,148 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:43:25,148 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 18:43:25,148 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 18:43:25,149 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:43:25,149 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:44:22,723 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:44:22,728 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:44:22,729 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 18:44:22,729 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:44:22,729 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:45:07,743 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:45:07,750 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:45:07,751 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 18:46:29,380 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:46:29,382 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:47:17,991 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:47:17,994 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:47:17,995 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 18:50:03,767 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:50:03,771 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:50:03,771 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 18:58:42,467 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:58:42,471 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:58:42,471 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 18:58:42,471 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:58:42,472 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:58:42,473 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:59:14,902 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 18:59:14,906 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 18:59:14,906 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 18:59:14,906 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 18:59:14,907 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 18:59:14,907 INFO c.s.s.c.s.Cart [main] Name: cheese, price: 20.0, id: 3
+2022-04-06 19:00:48,721 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 19:00:48,725 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 19:00:48,725 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 19:00:48,725 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 19:00:58,858 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 19:00:58,862 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 19:00:58,862 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 19:00:58,862 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 19:00:58,862 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 19:01:08,504 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 19:01:08,511 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 19:01:08,511 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 19:01:08,512 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 19:01:08,512 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 19:01:16,774 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 19:01:16,782 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 19:01:16,783 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 19:01:16,783 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 19:01:16,783 ERROR c.s.s.c.mainProgram [main] Product not found.
+2022-04-06 19:01:51,978 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 19:01:51,986 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 19:01:51,987 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-06 19:01:51,987 ERROR c.s.s.c.mainProgram [main] Element not found.
+2022-04-06 19:02:05,522 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-06 19:02:05,528 INFO c.s.s.c.s.Cart [main] Name: Shampoo, price: 16.0, id: 2
+2022-04-06 19:02:05,529 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 

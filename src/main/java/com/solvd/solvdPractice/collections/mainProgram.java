@@ -9,8 +9,6 @@ import com.solvd.solvdPractice.collections.service.Supermarket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-//TODO: add debug configuration in log4j2.xml. Create the custom LinkedList and the Supermarket class with a queue.
-
 public class mainProgram {
 
     private final static Logger LOGGER = LogManager.getLogger(mainProgram.class);
@@ -58,13 +56,6 @@ public class mainProgram {
         //endregion
 
         //region Cart
-        //throw error because product isn't in the cart.
-        try {
-            cart1.getProduct(1);
-        } catch (ProductNotFoundException e) {
-            LOGGER.error(e.getMessage());
-        }
-
         try {
             cart1.addProduct(new Product("Shampoo", 16.00));
         } catch (CapacityCartException e) {
@@ -72,37 +63,14 @@ public class mainProgram {
         }
         try {
             cart1.getProducts();
-        } catch (EmptyCartException e) {
+        } catch (EmptyCartException | ElementNotFound e) {
             LOGGER.error(e.getMessage());
         }
-
+        //should throw error because product isn't in the cart.
         try {
-            cart1.removeProduct("Shampoo");
-        } catch (ProductNotFoundException e) {
-            LOGGER.error(e.getMessage());
-        }
-
-        try {
-            //Should throw an error
-            cart1.removeProduct(2);
-        } catch (ProductNotFoundException e) {
-            LOGGER.error(e.getMessage());
-        }
-        try {
-            cart1.getProducts();
-        } catch (EmptyCartException e) {
-            LOGGER.error(e.getMessage());
-        }
-
-        try {
-            client1.getCart().addProduct(new Product("cheese", 20.0));
-        } catch (CapacityCartException e) {
-            LOGGER.error(e.getMessage());
-        }
-        try {
-            cart1.getProducts();
-        } catch (EmptyCartException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.info(cart1.getProduct(5));
+        } catch (EmptyLinkedListException | ElementNotFound e) {
+            LOGGER.error(e.getMessage() + " Error id ");
         }
         //endregion
     }

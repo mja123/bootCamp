@@ -1,6 +1,5 @@
 package com.solvd.solvdPractice.collections.service;
 
-import com.solvd.solvdPractice.collections.CustomLinkedList;
 import com.solvd.solvdPractice.collections.exceptions.EmptyBoxException;
 import com.solvd.solvdPractice.collections.exceptions.EmptyQueueException;
 import com.solvd.solvdPractice.collections.exceptions.UnableBoxesException;
