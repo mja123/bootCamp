@@ -3,10 +3,12 @@ package com.solvd.solvdPractice.airport.fly;
 
 import com.solvd.solvdPractice.airport.people.IWork;
 import com.solvd.solvdPractice.airport.people.Person;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Pilot extends Person implements IWork {
+    private static final Logger LOGGER = LogManager.getLogger(Pilot.class);
     private Integer yearsOfExperience;
-
 
     //region constructors
 
@@ -25,7 +27,7 @@ public class Pilot extends Person implements IWork {
 
     @Override
     public void goToWork() {
-        System.out.println("Going to work");
+        LOGGER.info("Going to work");
     }
 
     @Override

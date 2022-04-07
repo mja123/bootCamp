@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 
-public class Plane {
+public class Plane implements IFly {
     private static final Logger LOGGER = LogManager.getLogger(Plane.class);
     private Pilot pilot;
     private String motor;
@@ -34,11 +34,11 @@ public class Plane {
         ControlTower controlTower = new ControlTower();
 
         controlTower.startFollowingPlane();
-        LOGGER.debug("The plane is taking off.");
+        LOGGER.info("The plane is taking off.");
     }
 
     public void arrive() {
-        LOGGER.debug("The plane is arriving.");
+        LOGGER.info("The plane is arriving.");
     }
     //endregion
 

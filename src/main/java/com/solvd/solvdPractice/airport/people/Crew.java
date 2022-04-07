@@ -1,6 +1,10 @@
 package com.solvd.solvdPractice.airport.people;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Crew extends Person implements IWork {
+    private static final Logger LOGGER = LogManager.getLogger(SecurityGuard.class);
     private String job;
 
     //region constructors
@@ -28,7 +32,7 @@ public class Crew extends Person implements IWork {
 
     @Override
     public void goToWork() {
-        System.out.println("Going to work");
+        LOGGER.info("Going to work");
     }
 
     @Override

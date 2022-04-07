@@ -87,6 +87,10 @@ public class Cart {
             throw new ElementNotFound("Product not found.");
         }
     }
+
+    public int countOfProducts() {
+        return products.getSize();
+    }
     //endregion
 
 }

@@ -1,8 +1,11 @@
 package com.solvd.solvdPractice.airport.machines;
 
 import com.solvd.solvdPractice.airport.exceptions.LoadCapacityException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class LoaderMachine extends Machine {
+public class LoaderMachine extends Machine implements  ILoad {
+    private static final Logger LOGGER = LogManager.getLogger(LoaderMachine.class);
     private Integer load;
     private final Integer loadCapacity;
 
@@ -25,11 +28,15 @@ public class LoaderMachine extends Machine {
     }
     //endregion
 
-    public void loadLuggage(Integer luggageWeight) throws LoadCapacityException {
-        if (getLoadCapacity() >= (getLoad() + luggageWeight)) {
+    public void load(Integer weight) throws LoadCapacityException {
+        if (getLoadCapacity() >= (getLoad() + weight)) {
             throw new LoadCapacityException("Load capacity was exceeded.");
         }
-        setLoad(getLoad() + luggageWeight);
+        setLoad(getLoad() + weight);
+    }
+
+    public void unload() {
+        LOGGER.info("Unloading luggage.");
     }
 
     public Integer getLoadCapacity() {

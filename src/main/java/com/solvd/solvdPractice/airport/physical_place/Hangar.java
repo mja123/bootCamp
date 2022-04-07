@@ -2,9 +2,14 @@ package com.solvd.solvdPractice.airport.physical_place;
 
 import com.solvd.solvdPractice.airport.exceptions.FullHangarException;
 import com.solvd.solvdPractice.airport.fly.Plane;
+import com.solvd.solvdPractice.airport.people.SecurityGuard;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 
-public class Hangar {
+public class Hangar implements IRapair <Plane> {
+    private static final Logger LOGGER = LogManager.getLogger(Hangar.class);
     private ArrayList<Plane> planes = new ArrayList<>();
     private final Integer CAPACITY = 3;
 
@@ -25,13 +30,20 @@ public class Hangar {
         planes.remove(plane);
     }
 
-    public void repairPlane(Plane plane) {
-        System.out.println("Repairing the plain " + plane.getPlaneId());
-    }
 
     //region getters and setters
     public Integer getCapacity() {
         return this.CAPACITY;
+    }
+
+    @Override
+    public void reparing(Plane toRepair) {
+        LOGGER.info("Repairing the plain: " + toRepair.getPlaneId());
+    }
+
+    @Override
+    public boolean canBeRepair(Plane object) {
+        return (object.getMotor() != null);
     }
 
     //endregion

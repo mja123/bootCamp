@@ -1,10 +1,13 @@
 package com.solvd.solvdPractice.airport.fly;
 
 import com.solvd.solvdPractice.airport.physical_place.Airport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
 public class Travel {
+    private static final Logger LOGGER = LogManager.getLogger(Travel.class);
     private Airport takeOff;
     private Airport arrive;
     private Plane plane;
@@ -64,7 +67,7 @@ public class Travel {
     //endregion
 
     public void travelData() {
-        System.out.println("The plane id is "+ plane.getPlaneId() + " and it take off from " + takeOff.getName() +
+        LOGGER.info("The plane id is "+ plane.getPlaneId() + " and it take off from " + takeOff.getName() +
                 " to " + arrive.getName());
     }
 }

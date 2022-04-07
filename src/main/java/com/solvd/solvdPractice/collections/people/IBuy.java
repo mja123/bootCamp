@@ -2,6 +2,6 @@ package com.solvd.solvdPractice.collections.people;
 
 public interface IBuy {
     void countOfProducts();
-    void amountToPay();
+    double amountToPay();
     void paymentForms(String wayToPay);
 }

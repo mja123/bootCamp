@@ -1,6 +1,10 @@
 package com.solvd.solvdPractice.airport.people;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class SecurityGuard extends Person implements IWork {
+    private static final Logger LOGGER = LogManager.getLogger(SecurityGuard.class);
     private Boolean isInAPlane;
 
     //region constructors
@@ -23,8 +27,9 @@ public class SecurityGuard extends Person implements IWork {
 
     @Override
     public void goToWork() {
-        System.out.println("Going to work");
+        LOGGER.info("Going to work");
     }
+
 
     public void setInAPlane(Boolean inAPlane) {
         isInAPlane = inAPlane;
