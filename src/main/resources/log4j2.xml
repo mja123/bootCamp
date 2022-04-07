@@ -14,18 +14,13 @@
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
-        <File name ="LogToFileErrorApacheUtils" fileName="${sys:logs:-logs}/apacheUtils/error.log">
+        <File name ="LogToFileErrorApacheUtils" fileName="${sys:logs:-logs}/apacheUtils.log">
             <LevelRangeFilter minLevel="ERROR" maxLevel="FATAL" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
-        <File name ="LogToFileInfoApacheUtils" fileName="${sys:logs:-logs}/apacheUtils/info.log">
-            <LevelRangeFilter minLevel="TRACE" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
-        </File>
+
     </Appenders>
 
 

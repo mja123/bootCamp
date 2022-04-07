@@ -62,8 +62,13 @@ public class mainProgram {
             LOGGER.error(e.getMessage());
         }
         try {
+            cart1.addProduct(new Product("Rice", 20.00));
+        } catch (CapacityCartException e) {
+            LOGGER.error(e.getMessage());
+        }
+        try {
             cart1.getProducts();
-        } catch (EmptyCartException | ElementNotFound e) {
+        } catch (EmptyCartException | ElementNotFound | EmptyLinkedListException e) {
             LOGGER.error(e.getMessage());
         }
         //should throw error because product isn't in the cart.

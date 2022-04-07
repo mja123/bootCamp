@@ -26,15 +26,11 @@ public class Cart {
             products.addElementAtStart(newProduct);
     }
 
-    public void getProducts() throws EmptyCartException, ElementNotFound {
-        if (!(products.getSize() > 0)) {
-            throw new EmptyCartException("There aren't products in the cart.");
-        }
-        for (int i = 0; i < products.getSize(); i++) {
-            LOGGER.info("Name: " + products.getOne(i).getData().getName() +
-                    ", price: " + products.getOne(i).getData().getPrice() +
-                    ", id: " + products.getOne(i).getData().getProductId() );
-        }
+    public void getProducts() throws EmptyCartException, ElementNotFound, EmptyLinkedListException {
+        products.getAll().forEach(p -> LOGGER.info(
+                "Name: " + p.getName() +
+                ", id: " + p.getProductId() +
+                ", price: " + p.getPrice()));
     }
 
     public Product getProduct(Integer id) throws EmptyLinkedListException, ElementNotFound {

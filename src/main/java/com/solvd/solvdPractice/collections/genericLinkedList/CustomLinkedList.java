@@ -58,16 +58,16 @@ public class CustomLinkedList <T> {
         size++;
     }
 
-    public ArrayList<Node> getAll() throws EmptyLinkedListException {
+    public ArrayList<T> getAll() throws EmptyLinkedListException {
         Node <T> currentNode = head;
-        ArrayList<Node> elements = new ArrayList<>();
+        ArrayList<T> elements = new ArrayList<>();
 
         if (currentNode == null) {
             throw new EmptyLinkedListException("The LinkedList is empty.");
         }
 
         while(currentNode != null) {
-            elements.add(currentNode);
+            elements.add(currentNode.getData());
             currentNode = currentNode.getNextNode();
         }
 
