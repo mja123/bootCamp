@@ -2,3 +2,7 @@
 2022-04-07 11:33:42,934 INFO c.s.s.c.s.Cart [main] Name: Rice, id: 3, price: 20.0
 2022-04-07 11:33:42,934 INFO c.s.s.c.s.Cart [main] Name: Shampoo, id: 2, price: 16.0
 2022-04-07 11:33:42,934 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 
+2022-04-08 10:30:23,742 ERROR c.s.s.c.mainProgram [main] There aren't clients in the queue.
+2022-04-08 10:30:23,748 INFO c.s.s.c.s.Cart [main] Name: Rice, id: 3, price: 20.0
+2022-04-08 10:30:23,748 INFO c.s.s.c.s.Cart [main] Name: Shampoo, id: 2, price: 16.0
+2022-04-08 10:30:23,748 ERROR c.s.s.c.mainProgram [main] Product not found. Error id 

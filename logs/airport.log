@@ -1,0 +1,4 @@
+2022-04-08 10:33:29,584 INFO c.s.s.e.BachillerDegree [main] The subject: PROGRAMMING2 has: 100.0 hours, and the teacher is: ERASO
+2022-04-08 10:33:29,589 INFO c.s.s.e.BachillerDegree [main] The subject: CALCULUS2 has: 110.0 hours, and the teacher is: SANDEZ
+2022-04-08 10:33:29,589 INFO c.s.s.e.BachillerDegree [main] The subject: ALGEBRA has: 120.0 hours, and the teacher is: WILKINSON
+2022-04-08 10:33:29,589 INFO c.s.s.e.BachillerDegree [main] The subject: CLOUD_COMPUTING has: 125.5 hours, and the teacher is: ONTIVERO
