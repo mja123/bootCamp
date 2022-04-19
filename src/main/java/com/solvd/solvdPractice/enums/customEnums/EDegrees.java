@@ -1,4 +1,4 @@
-package com.solvd.solvdPractice.enums;
+package com.solvd.solvdPractice.enums.customEnums;
 
 public enum EDegrees {
     INFORMATICS,

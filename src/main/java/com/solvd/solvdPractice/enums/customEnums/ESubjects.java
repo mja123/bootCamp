@@ -1,6 +1,6 @@
-package com.solvd.solvdPractice.enums;
+package com.solvd.solvdPractice.enums.customEnums;
 
-import static com.solvd.solvdPractice.enums.ETeachers.*;
+import static com.solvd.solvdPractice.enums.customEnums.ETeachers.*;
 
 public enum ESubjects {
     ALGEBRA(120.00, WILKINSON),

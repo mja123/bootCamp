@@ -1,16 +1,12 @@
 package com.solvd.solvdPractice.reflectionPractice;
 
 import com.solvd.solvdPractice.enums.BachillerDegree;
-import com.solvd.solvdPractice.enums.EDegrees;
+import com.solvd.solvdPractice.enums.customEnums.EDegrees;
 import com.solvd.solvdPractice.enums.Student;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ReflectionProgram {

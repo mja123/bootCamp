@@ -1,6 +1,7 @@
 package com.solvd.solvdPractice.enums;
 
-import com.solvd.solvdPractice.collections.exceptions.ElementNotFound;
+import com.solvd.solvdPractice.enums.customEnums.EDegrees;
+import com.solvd.solvdPractice.enums.customEnums.ESubjects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
