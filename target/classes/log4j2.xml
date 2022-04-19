@@ -21,6 +21,7 @@
             </PatternLayout>
         </File>
 
+
     </Appenders>
 
 
@@ -40,6 +41,10 @@
         </Logger>
 
         <Logger name="com.solvd.solvdPractice.enums" level="info" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+
+        <Logger name="com.solvd.solvdPractice.reflectionPractice" level="info" additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
 

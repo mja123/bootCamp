@@ -25,9 +25,8 @@ public class Supermarket {
         }
 
         ArrayList<Integer> cashiers = new ArrayList<>();
-        for (Cashier cashier : boxes.keySet()) {
-            cashiers.add(cashier.getCashierId());
-        }
+        boxes.forEach((c, p) -> cashiers.add(c.getCashierId()));
+
         return cashiers;
     }
 
