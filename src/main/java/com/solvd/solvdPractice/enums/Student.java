@@ -62,7 +62,7 @@ public class Student {
 
     public Double averageCalculus(ArrayList<Double> marks) {
 
-        IAverage finalAverage = m ->
+        IAverage<Double> finalAverage = m ->
             m.stream().reduce(0.0, Double::sum)/m.size();
 
         return finalAverage.average(marks);
