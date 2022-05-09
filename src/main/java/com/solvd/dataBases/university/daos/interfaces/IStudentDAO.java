@@ -1,7 +1,5 @@
 package com.solvd.dataBases.university.daos.interfaces;
 
-import com.solvd.dataBases.university.daos.mySqlImplementation.StudentDAO;
+import com.solvd.dataBases.university.model.Student;
 
-public interface IStudentDAO extends IBaseDAO <StudentDAO> {
-
-}
+public interface IStudentDAO extends IBaseDAO<Student> {}

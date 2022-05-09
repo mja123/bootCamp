@@ -16,42 +16,40 @@ import java.io.IOException;
 
 public class XMLDOMParser {
 
-    private static final Logger LOGGER = LogManager.getLogger(XMLDOMParser.class);
-    public static void main(String[] args) {
+  private static final Logger LOGGER = LogManager.getLogger(XMLDOMParser.class);
 
-        try {
+  public static void main(String[] args) {
 
-            File xmlFile = new File(System.getenv("XML_FILE"));
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(xmlFile);
+    try {
+      File xmlFile = new File(System.getenv("XML_FILE"));
+      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder builder = factory.newDocumentBuilder();
+      Document document = builder.parse(xmlFile);
 
-            document.getDocumentElement().normalize();
+      document.getDocumentElement().normalize();
 
-            NodeList list = document.getElementsByTagName("Student");
+      NodeList list = document.getElementsByTagName("Student");
 
-            for (int i = 0; i < list.getLength(); i++) {
+      for (int i = 0; i < list.getLength(); i++) {
 
-                Node node = list.item(i);
+        Node node = list.item(i);
 
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    LOGGER.info("****** Stuedent "+ i + " ******");
-                    Element element = (Element) node;
-                    LOGGER.info("Email: " +
-                            element.getAttribute("email"));
-                    LOGGER.info("Average: " +
-                            element.getElementsByTagName("average").item(0).getTextContent());
-                    LOGGER.info("Age: " +
-                            element.getElementsByTagName("age").item(0).getTextContent());
-                    LOGGER.info("Years in the degree: " +
-                            element.getElementsByTagName("year_in_degree").item(0).getTextContent());
-                    LOGGER.info("************\n");
-                }
-            }
-            
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            LOGGER.error(e.getMessage());
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+          LOGGER.info("****** Stuedent " + i + " ******");
+          Element element = (Element) node;
+          LOGGER.info("Email: " + element.getAttribute("email"));
+          LOGGER.info(
+              "Average: " + element.getElementsByTagName("average").item(0).getTextContent());
+          LOGGER.info("Age: " + element.getElementsByTagName("age").item(0).getTextContent());
+          LOGGER.info(
+              "Years in the degree: "
+                  + element.getElementsByTagName("year_in_degree").item(0).getTextContent());
+          LOGGER.info("************\n");
         }
-    }
+      }
 
+    } catch (ParserConfigurationException | SAXException | IOException e) {
+      LOGGER.error(e.getMessage());
+    }
+  }
 }
