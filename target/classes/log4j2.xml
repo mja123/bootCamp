@@ -48,6 +48,10 @@
             <AppenderRef ref="LogToConsole"/>
         </Logger>
 
+        <Logger name="com.solvd.dataBases.university" level="info" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+
         <Root level="error">
             <AppenderRef ref="LogToConsole"/>
             <AppenderRef ref="LogToFileAirport"/>
