@@ -1,19 +1,17 @@
 package com.solvd.dataBases.university.daos.mySqlImplementation;
 
-import com.solvd.dataBases.university.daos.exceptions.ElementNotFound;
+import com.solvd.dataBases.university.daos.connectionPool.ConnectionPool;
+import com.solvd.dataBases.university.daos.exceptions.ElementNotFoundException;
+import com.solvd.dataBases.university.daos.exceptions.FullConnectionPoolException;
 import com.solvd.dataBases.university.daos.interfaces.IStudentDAO;
 import com.solvd.dataBases.university.model.Student;
+import com.solvd.solvdPractice.collections.exceptions.ElementNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.xml.transform.Result;
-
 import static com.solvd.dataBases.university.daos.mySqlImplementation.EStudentAttributes.*;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.*;
-import java.util.Properties;
 
 public class StudentDAO implements IStudentDAO {
 
@@ -22,11 +20,18 @@ public class StudentDAO implements IStudentDAO {
   private final String TABLE_NAME = "students";
 
   @Override
-  public Student getEntityByID(Long id) {
+  public Student getEntityByID(Long id) throws ElementNotFound {
     String selectOne = "SELECT * FROM " + this.TABLE_NAME + " WHERE id = " + id + ";";
     Student studentFound = null;
 
+    setCONNECTION();
+
     try (PreparedStatement getStudent = CONNECTION.prepareStatement(selectOne)) {
+
+      if (id == null) {
+        throw new ElementNotFound("Id doesn't exist.");
+      }
+
       ResultSet result = getStudent.executeQuery();
       studentFound = this.covertInStudent(result);
 
@@ -34,12 +39,17 @@ public class StudentDAO implements IStudentDAO {
 
     } catch (SQLException throwables) {
       LOGGER.error(throwables.getMessage());
+    } finally {
+      ConnectionPool.getInstance().goBackConnection(CONNECTION);
     }
     return studentFound;
   }
 
   @Override
   public void saveEntity(Student entity) {
+
+    setCONNECTION();
+
     String insertQuery =
         "INSERT into "
             + this.TABLE_NAME
@@ -56,7 +66,8 @@ public class StudentDAO implements IStudentDAO {
             + ") "
             + "VALUES ( ?, ?, ?, ?);";
 
-    try (PreparedStatement insertStudent = CONNECTION.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+    try (PreparedStatement insertStudent =
+        CONNECTION.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
       CONNECTION.setAutoCommit(false);
       insertStudent.setString(1, entity.getName());
       insertStudent.setString(2, entity.getEmail());
@@ -68,21 +79,26 @@ public class StudentDAO implements IStudentDAO {
       ResultSet keys = insertStudent.getGeneratedKeys();
       if (keys.next()) {
         entity.setId(keys.getLong(1));
+        LOGGER.info(keys.getLong(1));
       } else {
-        throw new ElementNotFound("The id wasn't generated");
+        throw new ElementNotFoundException("The id wasn't generated");
       }
 
       keys.close();
 
       CONNECTION.commit();
 
-    } catch (SQLException | ElementNotFound throwables) {
+    } catch (SQLException | ElementNotFoundException throwables) {
       LOGGER.error(throwables.getMessage());
+    } finally {
+      ConnectionPool.getInstance().goBackConnection(CONNECTION);
     }
   }
 
   @Override
-  public void updateEntity(Student entity) {
+  public void updateEntity(Student entity) throws ElementNotFound {
+
+    setCONNECTION();
 
     String update =
         "UPDATE "
@@ -95,9 +111,17 @@ public class StudentDAO implements IStudentDAO {
             + AGE.getATTRIBUTE()
             + " = ? "
             + YEARS_IN_DEGREE.getATTRIBUTE()
-            + " = ? ;";
+            + " = ? "
+            + " WHERE "
+            + ID.getATTRIBUTE()
+            + " = "
+            + entity.getId();
 
     try (PreparedStatement updateUser = CONNECTION.prepareStatement(update)) {
+
+      if (entity.getId() == null) {
+        throw new ElementNotFound("Id doesn't exist.");
+      }
       updateUser.setString(1, entity.getName());
       updateUser.setString(2, entity.getEmail());
       updateUser.setInt(3, entity.getAge());
@@ -107,19 +131,37 @@ public class StudentDAO implements IStudentDAO {
 
     } catch (SQLException throwables) {
       LOGGER.error(throwables.getMessage());
+    } finally {
+      ConnectionPool.getInstance().goBackConnection(CONNECTION);
     }
   }
 
   @Override
-  public void removeEntity(Student entity) {
-    String remove = "DELETE FROM " + this.TABLE_NAME + " WHERE id = " + entity.getId() + ";";
+  public void removeEntity(Student entity) throws ElementNotFound {
+
+    setCONNECTION();
+
+    String remove =
+        "DELETE FROM "
+            + this.TABLE_NAME
+            + " WHERE "
+            + ID.getATTRIBUTE()
+            + " = "
+            + entity.getId()
+            + ";";
 
     try (PreparedStatement removeUser = CONNECTION.prepareStatement(remove)) {
-      removeUser.executeUpdate();
 
-      // entity.setDeletedAt(new Date().toInstant());
+      if (entity.getId() == null) {
+        throw new ElementNotFound("Id doesn't exist.");
+      }
+
+      removeUser.executeUpdate();
+      LOGGER.info("Removed.");
     } catch (SQLException throwables) {
       LOGGER.error(throwables.getMessage());
+    } finally {
+      ConnectionPool.getInstance().goBackConnection(CONNECTION);
     }
   }
 
@@ -134,10 +176,10 @@ public class StudentDAO implements IStudentDAO {
 
         student = new Student(name, email, age, yearsInDegree);
       } else {
-        throw new ElementNotFound("Element not found.");
+        throw new ElementNotFoundException("Element not found.");
       }
 
-    } catch (SQLException | ElementNotFound e) {
+    } catch (SQLException | ElementNotFoundException e) {
       e.printStackTrace();
     }
     return student;
@@ -145,21 +187,12 @@ public class StudentDAO implements IStudentDAO {
 
   public static void setCONNECTION() {
 
-    Properties properties = new Properties();
     try {
-      FileReader reader = new FileReader(System.getenv("PROPERTIES"));
-      properties.load(reader);
-      CONNECTION =
-          DriverManager.getConnection(
-              properties.getProperty("URL")
-                  + "?"
-                  + "user="
-                  + properties.getProperty("USER")
-                  + "&password="
-                  + properties.getProperty("PASSWORD"));
-      System.out.println("Connection open");
-    } catch (SQLException | IOException e) {
-      e.printStackTrace();
+      CONNECTION = ConnectionPool.getInstance().getConnection();
+    } catch (FullConnectionPoolException e) {
+      LOGGER.error(e.getMessage());
+      LOGGER.info("Trying again...");
+      setCONNECTION();
     }
   }
 }

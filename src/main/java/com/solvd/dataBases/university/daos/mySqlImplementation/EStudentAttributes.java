@@ -6,6 +6,7 @@ public enum EStudentAttributes {
   EMAIL("email"),
   AGE("age"),
   YEARS_IN_DEGREE("year_in_degree"),
+  ID("id"),
   ;
 
   private final String ATTRIBUTE;

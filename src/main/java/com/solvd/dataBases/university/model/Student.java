@@ -88,4 +88,17 @@ public class Student {
   public void setDeletedAt(Date deletedAt) {
     this.deletedAt = deletedAt;
   }
+
+  @Override
+  public String toString() {
+    return "Student{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", age=" + age +
+            ", yearsInDegree=" + yearsInDegree +
+            ", createdAt=" + createdAt +
+            ", deletedAt=" + deletedAt +
+            '}';
+  }
 }
