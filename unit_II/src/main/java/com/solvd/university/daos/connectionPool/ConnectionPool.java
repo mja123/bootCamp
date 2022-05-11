@@ -1,6 +1,6 @@
-package com.solvd.dataBases.university.daos.connectionPool;
+package com.solvd.university.daos.connectionPool;
 
-import com.solvd.dataBases.university.daos.exceptions.FullConnectionPoolException;
+import com.solvd.university.daos.exceptions.FullConnectionPoolException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +42,7 @@ public class ConnectionPool {
                 connectionsInUse++;
                 return connections.poll();
             } catch (IOException | SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage());
                 return connections.poll();
             }
         } else if ((connections.size() - connectionsInUse) > 0) {

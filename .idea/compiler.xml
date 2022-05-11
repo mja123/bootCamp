@@ -8,7 +8,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="testLog4j" />
         <module name="solvdPractice" />
+        <module name="dataBasePractice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dataBases (1)" target="8" />
+      <module name="dataBasesPractice" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

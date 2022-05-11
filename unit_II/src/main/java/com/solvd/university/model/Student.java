@@ -1,7 +1,11 @@
-package com.solvd.dataBases.university.model;
+package com.solvd.university.model;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Date;
 
+@XmlRootElement(name = "Student")
 public class Student {
   private Long id;
   private String name;
@@ -10,6 +14,7 @@ public class Student {
   private Integer yearsInDegree;
   private Date createdAt;
   private Date deletedAt;
+
 
   public Student() {}
 
@@ -20,18 +25,14 @@ public class Student {
     this.yearsInDegree = yearsInDegree;
   }
 
-  public Student(
-      Long id,
-      String name,
-      String email,
-      Integer age,
-      Integer yearsInDegree) {
+  public Student(Long id, String name, String email, Integer age, Integer yearsInDegree) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.age = age;
     this.yearsInDegree = yearsInDegree;
   }
+
 
   public Long getId() {
     return id;
@@ -41,6 +42,7 @@ public class Student {
     this.id = id;
   }
 
+  @XmlElement
   public String getName() {
     return name;
   }
@@ -49,6 +51,7 @@ public class Student {
     this.name = name;
   }
 
+  @XmlElement
   public String getEmail() {
     return email;
   }
@@ -57,6 +60,7 @@ public class Student {
     this.email = email;
   }
 
+  @XmlElement
   public Integer getAge() {
     return age;
   }
@@ -65,6 +69,7 @@ public class Student {
     this.age = age;
   }
 
+  @XmlElement
   public Integer getYearsInDegree() {
     return yearsInDegree;
   }
@@ -91,14 +96,23 @@ public class Student {
 
   @Override
   public String toString() {
-    return "Student{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", email='" + email + '\'' +
-            ", age=" + age +
-            ", yearsInDegree=" + yearsInDegree +
-            ", createdAt=" + createdAt +
-            ", deletedAt=" + deletedAt +
-            '}';
+    return "Student{"
+        + "id="
+        + id
+        + ", name='"
+        + name
+        + '\''
+        + ", email='"
+        + email
+        + '\''
+        + ", age="
+        + age
+        + ", yearsInDegree="
+        + yearsInDegree
+        + ", createdAt="
+        + createdAt
+        + ", deletedAt="
+        + deletedAt
+        + '}';
   }
 }

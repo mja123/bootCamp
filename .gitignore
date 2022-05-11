@@ -1,10 +1,12 @@
-target/
+target
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
-src/main/resources/db.properties
+
+unit_II/src/main/resources/db.properties
+unit_II/target
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties

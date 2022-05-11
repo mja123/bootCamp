@@ -1,15 +1,14 @@
-package com.solvd.dataBases.university.daos.mySqlImplementation;
+package com.solvd.university.daos.mySqlImplementation;
 
-import com.solvd.dataBases.university.daos.connectionPool.ConnectionPool;
-import com.solvd.dataBases.university.daos.exceptions.ElementNotFoundException;
-import com.solvd.dataBases.university.daos.exceptions.FullConnectionPoolException;
-import com.solvd.dataBases.university.daos.interfaces.IStudentDAO;
-import com.solvd.dataBases.university.model.Student;
-import com.solvd.solvdPractice.collections.exceptions.ElementNotFound;
+import com.solvd.university.daos.connectionPool.ConnectionPool;
+import com.solvd.university.daos.exceptions.ElementNotFoundException;
+import com.solvd.university.daos.exceptions.FullConnectionPoolException;
+import com.solvd.university.daos.interfaces.IStudentDAO;
+import com.solvd.university.model.Student;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.solvd.dataBases.university.daos.mySqlImplementation.EStudentAttributes.*;
+import static com.solvd.university.daos.mySqlImplementation.enums.EStudentAttributes.*;
 
 import java.sql.*;
 
@@ -20,7 +19,7 @@ public class StudentDAO implements IStudentDAO {
   private final String TABLE_NAME = "students";
 
   @Override
-  public Student getEntityByID(Long id) throws ElementNotFound {
+  public Student getEntityByID(Long id) throws ElementNotFoundException {
     String selectOne = "SELECT * FROM " + this.TABLE_NAME + " WHERE id = " + id + ";";
     Student studentFound = null;
 
@@ -29,7 +28,7 @@ public class StudentDAO implements IStudentDAO {
     try (PreparedStatement getStudent = CONNECTION.prepareStatement(selectOne)) {
 
       if (id == null) {
-        throw new ElementNotFound("Id doesn't exist.");
+        throw new ElementNotFoundException("Id doesn't exist.");
       }
 
       ResultSet result = getStudent.executeQuery();
@@ -96,7 +95,7 @@ public class StudentDAO implements IStudentDAO {
   }
 
   @Override
-  public void updateEntity(Student entity) throws ElementNotFound {
+  public void updateEntity(Student entity) throws ElementNotFoundException {
 
     setCONNECTION();
 
@@ -120,7 +119,7 @@ public class StudentDAO implements IStudentDAO {
     try (PreparedStatement updateUser = CONNECTION.prepareStatement(update)) {
 
       if (entity.getId() == null) {
-        throw new ElementNotFound("Id doesn't exist.");
+        throw new ElementNotFoundException("Id doesn't exist.");
       }
       updateUser.setString(1, entity.getName());
       updateUser.setString(2, entity.getEmail());
@@ -137,7 +136,7 @@ public class StudentDAO implements IStudentDAO {
   }
 
   @Override
-  public void removeEntity(Student entity) throws ElementNotFound {
+  public void removeEntity(Student entity) throws ElementNotFoundException {
 
     setCONNECTION();
 
@@ -153,7 +152,7 @@ public class StudentDAO implements IStudentDAO {
     try (PreparedStatement removeUser = CONNECTION.prepareStatement(remove)) {
 
       if (entity.getId() == null) {
-        throw new ElementNotFound("Id doesn't exist.");
+        throw new ElementNotFoundException("Id doesn't exist.");
       }
 
       removeUser.executeUpdate();

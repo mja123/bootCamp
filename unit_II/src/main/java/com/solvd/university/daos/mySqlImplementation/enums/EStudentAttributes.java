@@ -1,4 +1,4 @@
-package com.solvd.dataBases.university.daos.mySqlImplementation;
+package com.solvd.university.daos.mySqlImplementation.enums;
 
 public enum EStudentAttributes {
   NAME("name"),

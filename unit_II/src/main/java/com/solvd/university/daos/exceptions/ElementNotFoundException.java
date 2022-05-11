@@ -1,4 +1,4 @@
-package com.solvd.dataBases.university.daos.exceptions;
+package com.solvd.university.daos.exceptions;
 
 public class ElementNotFoundException extends Throwable {
     public ElementNotFoundException(String message) {
