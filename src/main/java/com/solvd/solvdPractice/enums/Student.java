@@ -42,7 +42,6 @@ public class Student {
 
     public String goToClass() {
         Supplier<String> takeClass = () -> "Taking class";
-
         return takeClass.get();
     }
 

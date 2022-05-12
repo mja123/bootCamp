@@ -8,14 +8,14 @@ import com.solvd.university.model.Student;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.solvd.university.daos.mySqlImplementation.enums.EStudentAttributes.*;
+import static com.solvd.university.daos.mySqlImplementation.enums.EAttributesEntities.*;
 
 import java.sql.*;
 
 public class StudentDAO implements IStudentDAO {
 
   private static final Logger LOGGER = LogManager.getLogger(StudentDAO.class);
-  private static Connection CONNECTION = null;
+  private static Connection connection = null;
   private final String TABLE_NAME = "students";
 
   @Override
@@ -23,9 +23,9 @@ public class StudentDAO implements IStudentDAO {
     String selectOne = "SELECT * FROM " + this.TABLE_NAME + " WHERE id = " + id + ";";
     Student studentFound = null;
 
-    setCONNECTION();
+    setConnection();
 
-    try (PreparedStatement getStudent = CONNECTION.prepareStatement(selectOne)) {
+    try (PreparedStatement getStudent = connection.prepareStatement(selectOne)) {
 
       if (id == null) {
         throw new ElementNotFoundException("Id doesn't exist.");
@@ -39,7 +39,7 @@ public class StudentDAO implements IStudentDAO {
     } catch (SQLException throwables) {
       LOGGER.error(throwables.getMessage());
     } finally {
-      ConnectionPool.getInstance().goBackConnection(CONNECTION);
+      ConnectionPool.getInstance().goBackConnection(connection);
     }
     return studentFound;
   }
@@ -47,7 +47,7 @@ public class StudentDAO implements IStudentDAO {
   @Override
   public void saveEntity(Student entity) {
 
-    setCONNECTION();
+    setConnection();
 
     String insertQuery =
         "INSERT into "
@@ -66,8 +66,8 @@ public class StudentDAO implements IStudentDAO {
             + "VALUES ( ?, ?, ?, ?);";
 
     try (PreparedStatement insertStudent =
-        CONNECTION.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
-      CONNECTION.setAutoCommit(false);
+        connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+      connection.setAutoCommit(false);
       insertStudent.setString(1, entity.getName());
       insertStudent.setString(2, entity.getEmail());
       insertStudent.setInt(3, entity.getAge());
@@ -78,26 +78,25 @@ public class StudentDAO implements IStudentDAO {
       ResultSet keys = insertStudent.getGeneratedKeys();
       if (keys.next()) {
         entity.setId(keys.getLong(1));
-        LOGGER.info(keys.getLong(1));
       } else {
         throw new ElementNotFoundException("The id wasn't generated");
       }
 
       keys.close();
 
-      CONNECTION.commit();
+      connection.commit();
 
     } catch (SQLException | ElementNotFoundException throwables) {
       LOGGER.error(throwables.getMessage());
     } finally {
-      ConnectionPool.getInstance().goBackConnection(CONNECTION);
+      ConnectionPool.getInstance().goBackConnection(connection);
     }
   }
 
   @Override
   public void updateEntity(Student entity) throws ElementNotFoundException {
 
-    setCONNECTION();
+    setConnection();
 
     String update =
         "UPDATE "
@@ -116,7 +115,7 @@ public class StudentDAO implements IStudentDAO {
             + " = "
             + entity.getId();
 
-    try (PreparedStatement updateUser = CONNECTION.prepareStatement(update)) {
+    try (PreparedStatement updateUser = connection.prepareStatement(update)) {
 
       if (entity.getId() == null) {
         throw new ElementNotFoundException("Id doesn't exist.");
@@ -131,27 +130,21 @@ public class StudentDAO implements IStudentDAO {
     } catch (SQLException throwables) {
       LOGGER.error(throwables.getMessage());
     } finally {
-      ConnectionPool.getInstance().goBackConnection(CONNECTION);
+      ConnectionPool.getInstance().goBackConnection(connection);
     }
   }
 
   @Override
-  public void removeEntity(Student entity) throws ElementNotFoundException {
+  public void removeEntity(Long id) throws ElementNotFoundException {
 
-    setCONNECTION();
+    setConnection();
 
     String remove =
-        "DELETE FROM "
-            + this.TABLE_NAME
-            + " WHERE "
-            + ID.getATTRIBUTE()
-            + " = "
-            + entity.getId()
-            + ";";
+        "DELETE FROM " + this.TABLE_NAME + " WHERE " + ID.getATTRIBUTE() + " = " + id + ";";
 
-    try (PreparedStatement removeUser = CONNECTION.prepareStatement(remove)) {
+    try (PreparedStatement removeUser = connection.prepareStatement(remove)) {
 
-      if (entity.getId() == null) {
+      if (id == null) {
         throw new ElementNotFoundException("Id doesn't exist.");
       }
 
@@ -160,20 +153,21 @@ public class StudentDAO implements IStudentDAO {
     } catch (SQLException throwables) {
       LOGGER.error(throwables.getMessage());
     } finally {
-      ConnectionPool.getInstance().goBackConnection(CONNECTION);
+      ConnectionPool.getInstance().goBackConnection(connection);
     }
   }
 
   private Student covertInStudent(ResultSet result) {
-    Student student = null;
+    Student student = new Student();
     try {
       if (result.next()) {
-        String name = result.getString(NAME.getATTRIBUTE());
-        String email = result.getString(EMAIL.getATTRIBUTE());
-        Integer age = result.getInt(AGE.getATTRIBUTE());
-        Integer yearsInDegree = result.getInt(YEARS_IN_DEGREE.getATTRIBUTE());
+        student.setId(result.getLong(ID.getATTRIBUTE()));
+        student.setName(result.getString(NAME.getATTRIBUTE()));
+        student.setEmail(result.getString(EMAIL.getATTRIBUTE()));
+        student.setAge(result.getInt(AGE.getATTRIBUTE()));
+        student.setYearsInDegree(result.getInt(YEARS_IN_DEGREE.getATTRIBUTE()));
+        student.setCreatedAt(result.getDate(CREATED_AT.getATTRIBUTE()));
 
-        student = new Student(name, email, age, yearsInDegree);
       } else {
         throw new ElementNotFoundException("Element not found.");
       }
@@ -184,14 +178,14 @@ public class StudentDAO implements IStudentDAO {
     return student;
   }
 
-  public static void setCONNECTION() {
+  private static void setConnection() {
 
     try {
-      CONNECTION = ConnectionPool.getInstance().getConnection();
+      connection = ConnectionPool.getInstance().getConnection();
     } catch (FullConnectionPoolException e) {
       LOGGER.error(e.getMessage());
       LOGGER.info("Trying again...");
-      setCONNECTION();
+      setConnection();
     }
   }
 }

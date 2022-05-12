@@ -9,5 +9,5 @@ public interface IBaseDAO<T> {
 
   void updateEntity(T entity) throws ElementNotFoundException;
 
-  void removeEntity(T entity) throws ElementNotFoundException;
+  void removeEntity(Long id) throws ElementNotFoundException;
 }
