@@ -3,18 +3,31 @@ package com.solvd.university.model;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.sql.Date;
 
 @XmlRootElement(name = "Student")
 public class Student {
-  private Long id;
-  private String name;
-  private String email;
-  private Integer age;
-  private Integer yearsInDegree;
-  private Date createdAt;
-  private Date deletedAt;
+  @XmlTransient private Long id;
 
+  @XmlElement(name = "name")
+  private String name;
+
+  @XmlAttribute(name = "email")
+  private String email;
+
+  @XmlElement(name = "age")
+  private Integer age;
+
+  @XmlElement(name = "yearsInDegree")
+  private Integer yearsInDegree;
+  // @XmlElement(name = "createdAt")
+  @XmlTransient private Date createdAt;
+
+  @XmlTransient
+  // @XmlElement(name = "deletedAt")
+  private Date deletedAt;
+  // @XmlTransient
 
   public Student() {}
 
@@ -33,7 +46,6 @@ public class Student {
     this.yearsInDegree = yearsInDegree;
   }
 
-
   public Long getId() {
     return id;
   }
@@ -42,7 +54,6 @@ public class Student {
     this.id = id;
   }
 
-  @XmlElement
   public String getName() {
     return name;
   }
@@ -51,7 +62,6 @@ public class Student {
     this.name = name;
   }
 
-  @XmlElement
   public String getEmail() {
     return email;
   }
@@ -60,7 +70,6 @@ public class Student {
     this.email = email;
   }
 
-  @XmlElement
   public Integer getAge() {
     return age;
   }
@@ -69,7 +78,6 @@ public class Student {
     this.age = age;
   }
 
-  @XmlElement
   public Integer getYearsInDegree() {
     return yearsInDegree;
   }
