@@ -9,8 +9,10 @@ public enum EAttributesEntities {
   CREATED_AT("created_at"),
   DELETED_AT("deleted_at"),
   PROFESSION("profession"),
-  FACULTIES_ID("faculties_id")
-  ;
+  FACULTIES_ID("faculties_id"),
+  YEAR("year"),
+  BIANNUAL("biannual");
+
 
   private final String ATTRIBUTE;
 

@@ -45,6 +45,10 @@ public class MainService {
         switch (entity) {
             case DEAN:
                 DeanService deanService = new DeanService();
+                break;
+            case SUBJECT:
+                SubjectService subjectService = new SubjectService();
+                //subjectService.getSubject();
 
         }
     }

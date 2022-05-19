@@ -1,10 +1,8 @@
 package com.solvd.university.controller;
 
-import com.solvd.university.daos.exceptions.ElementNotFoundException;
+import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundException;
 import com.solvd.university.daos.mySqlImplementation.DeanDAO;
-import com.solvd.university.daos.mySqlImplementation.StudentDAO;
 import com.solvd.university.model.Dean;
-import com.solvd.university.model.Student;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

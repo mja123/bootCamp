@@ -1,8 +1,8 @@
 package com.solvd.university.daos.mySqlImplementation;
 
-import com.solvd.university.daos.connectionPool.ConnectionPool;
-import com.solvd.university.daos.exceptions.ElementNotFoundException;
-import com.solvd.university.daos.exceptions.FullConnectionPoolException;
+import com.solvd.university.daos.mySqlImplementation.connectionPool.ConnectionPool;
+import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundException;
+import com.solvd.university.daos.mySqlImplementation.exceptions.FullConnectionPoolException;
 import com.solvd.university.daos.interfaces.IStudentDAO;
 import com.solvd.university.model.Student;
 import org.apache.logging.log4j.LogManager;

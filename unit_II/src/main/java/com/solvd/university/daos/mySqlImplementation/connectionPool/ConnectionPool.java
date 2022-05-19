@@ -1,6 +1,6 @@
-package com.solvd.university.daos.connectionPool;
+package com.solvd.university.daos.mySqlImplementation.connectionPool;
 
-import com.solvd.university.daos.exceptions.FullConnectionPoolException;
+import com.solvd.university.daos.mySqlImplementation.exceptions.FullConnectionPoolException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

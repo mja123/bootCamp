@@ -1,6 +1,6 @@
 package com.solvd.university.daos.interfaces;
 
-import com.solvd.university.daos.exceptions.ElementNotFoundException;
+import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundException;
 
 public interface IBaseDAO<T> {
   T getEntityByID(Long id) throws ElementNotFoundException;

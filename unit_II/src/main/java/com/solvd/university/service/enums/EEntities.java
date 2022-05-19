@@ -5,9 +5,10 @@ import com.solvd.university.service.DeanService;
 public enum EEntities {
     STUDENT,
     DEAN,
+    SUBJECT;
     /*FACULTY,
     PROGRAM,
-    SUBJECT,
+
     TEACHERS,
     DEGREES,
     DEGREE_PROGRAM
