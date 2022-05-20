@@ -18,6 +18,12 @@ public class Subject {
         this.year = year;
         this.biannual = biannual;
     }
+    public Subject(Long id, String name, Integer year, Boolean biannual) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+        this.biannual = biannual;
+    }
 
     public Subject(Long id, String name, Integer year, Boolean biannual, Date createdAt, Date deletedAt) {
         this.id = id;

@@ -11,7 +11,7 @@ public class SubjectService {
 
   public static void main(String[] args) {
     SubjectDAO subjectDAO = new SubjectDAO("subjects", "com.solvd.university.model.Subject");
-    Subject subject = new Subject(6L, "Test", 2, true, null, null);
+    Subject subject = new Subject(3L,"Test", 2, true);
 
     try {
       subjectDAO.updateEntity(subject);
