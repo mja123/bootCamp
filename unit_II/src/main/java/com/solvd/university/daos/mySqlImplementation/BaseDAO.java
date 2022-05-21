@@ -69,6 +69,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     ConnectionPool.getInstance().goBackConnection(this.connection);
   }
 
+  //TODO: REQUEST THE ID IN THE OBJECT RECEIVED BUT, AVOID IT IN THE ATTRIBUTES TO MODIFY, ONLY USE IN THE WHERE PART OF THE QUERY
   @Override
   public void updateEntity(T entity) throws ElementNotFoundException {
     this.setConnection();
@@ -76,34 +77,32 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     this.reflectionClass();
     this.reflectionFields(entity);
 
+    Long id = null;
     String update = "UPDATE " + this.TABLE_NAME + " SET ";
 
     int counter = 0;
     for (String field : objectFields.keySet()) {
 
       if (counter == objectFields.size() - 1) {
-        update = update.concat(field + " = ?;");
+        update = update.concat(field + " = ? WHERE " + ID.getATTRIBUTE() + " = " + id);
       } else {
         update = update.concat(field + " = ?, ");
       }
       counter++;
     }
-    System.out.println(update);
+
     try  {
       PreparedStatement updateRow = this.connection.prepareStatement(update);
-      updateRow = setPlaceHolders(updateRow);
+      setPlaceHolders(updateRow);
       System.out.println(updateRow);
+      updateRow.executeUpdate();
     } catch (SQLException throwables) {
       LOGGER.error(throwables.getMessage());
     }
-    /*ArrayList<String> targetFields = this.reflectionFields(entity);
-    List<String> values = this.splitToString(entity, targetFields.size());
 
     // TODO: FIX THE ORDER OF THE FIELDS AND REVIEW THE CREATED_AT FIELD IN REFLECTION_CLASS. ADD
     // THE PLACEHOLDERS AND SET IT WITH THE ELEMENTS IN VALUES ARRAY
 
-
-    */
   }
 
   @Override
@@ -123,12 +122,15 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     }
   }
 
-  private PreparedStatement setPlaceHolders(PreparedStatement query) throws SQLException {
+  //private Long
+
+  private void setPlaceHolders(PreparedStatement query) throws SQLException {
     int counter = 1;
     Object value = null;
     boolean found;
+    ArrayList<String> lastValue = new ArrayList<>();
+
     //Iterating for the datatype of the fields
-    //TODO: AFTER THE FIRST ITERATION, I NEED TO PASS THE IDENTIFIER IN DECAREDOBJECTFIELDS AND IN OBJECTFIELDS
     for (String type : declaredObjectFields.values()) {
       //Iterating for the identifiers
       for (String identifier : declaredObjectFields.keySet()) {
@@ -137,45 +139,22 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
         for (String field : objectFields.keySet()) {
           //Set variable value with the value of the field.
           if( identifier.equals(field)) {
-            System.out.println(identifier);
-            value = objectFields.get(identifier);
-            found = true;
-            break;
+            //Search if the identifier is not someone that was used.
+            if (!lastValue.contains(identifier)) {
+              value = objectFields.get(identifier);
+              lastValue.add(identifier);
+              found = true;
+              break;
+            }
+
           }
         }
         if (found)
           break;
       }
 
-      System.out.println("Counter: " + counter + " value: " + value);
       switch (type) {
-        case "java.lang.Long":
-          query.setLong(counter, (Integer) value);
-          break;
-        case "java.lang.Integer":
-          System.out.println("Integer");
-          query.setInt(counter, (Integer) value);
-          break;
-        case "java.lang.String":
-          query.setString(counter, (String) value);
-          break;
-        case "java.sql.Date":
-          query.setDate(counter, (java.sql.Date) value);
-          break;
-        case "java.sql.Double":
-          query.setDouble(counter, (Double) value);
-          break;
-        case "java.lang.Boolean":
-          System.out.println("Boolean");
-          query.setBoolean(counter, (Boolean) value);
-
-          break;
-      }
-        //case "java.lang.Float" -> query.setFloat(counter, (Float) value);
-        //default -> System.out.println("I don't know");
-     /* switch (type) {
-        case "java.lang.Long" -> query.setLong(counter, (Integer) value);
-        //(Integer) row.get("ID")).longValue()
+        case "java.lang.Long" -> query.setLong(counter, (Long) value);
         case "java.lang.Integer" -> query.setInt(counter, (Integer) value);
         case "java.lang.String" -> query.setString(counter, (String) value);
         case "java.sql.Date" -> query.setDate(counter, (java.sql.Date) value);
@@ -183,10 +162,9 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
         case "java.lang.Boolean" -> query.setBoolean(counter, (Boolean) value);
         case "java.lang.Float" -> query.setFloat(counter, (Float) value);
         default -> System.out.println("I don't know");
-      }*/
+      }
       counter++;
     }
-    return query;
   }
 
   private T parseResultSet(ResultSet result) throws PrivateConstructorsException, SQLException {
@@ -283,40 +261,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
         }
       }
     }
-    declaredObjectFields.forEach((k,v) -> LOGGER.info("Identifier: " + k + ", type: " + v));
   }
-
-    /*for (Method method : getMethods) {
-      if (method.getName().contains(classFields.))
-    }
-    getMethods.forEach(m -> {
-      try {
-        objectFields.put(, m.invoke(entity));
-      } catch (IllegalAccessException | InvocationTargetException e) {
-        LOGGER.error(e);
-      }
-    });*/
-/*
-    // Filtering all the fields not nulls (fields to modify in the db). After that, they are
-    // iterated and compared with all the fields
-    // declared in the class, if they are equals (same name) then are added in the ArrayList.
-    Arrays.stream(targetObject.getDeclaredFields())
-        .forEach(
-            f -> {
-              for (String names : classFields.values()) {
-
-                try {
-                  if ((f.getName().equals(names)) && getMethods.indexOf() != null) {
-                    fieldsToModify.add(names);
-                  }
-                } catch (IllegalAccessException e) {
-                  LOGGER.error(e);
-                }
-              }
-            });
-
-    classFields.forEach((k, v) -> LOGGER.info("Key: " + k + " value: " + v));
-    return fieldsToModify;*/
 
   private void reflectionClass() {
     Field[] fields;
@@ -369,4 +314,18 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     this.classFields = fields;
   }
   // endregion
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    BaseDAO<?> baseDAO = (BaseDAO<?>) o;
+    return Objects.equals(TABLE_NAME, baseDAO.TABLE_NAME) && Objects.equals(connection, baseDAO.connection) && Objects.equals(CLASS_NAME, baseDAO.CLASS_NAME) && Objects.equals(instance, baseDAO.instance) && Objects.equals(classFields, baseDAO.classFields) && Objects.equals(objectFields, baseDAO.objectFields) && Objects.equals(declaredObjectFields, baseDAO.declaredObjectFields);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(TABLE_NAME, connection, CLASS_NAME, instance, classFields, objectFields, declaredObjectFields);
+  }
 }
