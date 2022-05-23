@@ -1,4 +1,4 @@
-package com.solvd.university.daos;
+package com.solvd.university.daos.mySqlImplementation;
 
 import com.solvd.university.daos.interfaces.IBaseDAO;
 import com.solvd.university.daos.mySqlImplementation.BaseDAO;

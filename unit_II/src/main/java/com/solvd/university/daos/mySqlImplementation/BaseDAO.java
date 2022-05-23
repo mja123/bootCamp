@@ -22,6 +22,12 @@ import static com.solvd.university.daos.mySqlImplementation.utils.StringUtil.par
 
 public abstract class BaseDAO<T> implements IBaseDAO<T> {
 
+  //TODO:
+  /*
+  - ADD REACTIVE COMPONENTS IN POOL CONNECTION
+  - CREATE METHOD
+   */
+
   private static final Logger LOGGER = LogManager.getLogger(BaseDAO.class);
   private final String TABLE_NAME;
   private Connection connection;
@@ -174,6 +180,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
   }
 
 
+  //In process
   private T parseResultSet(ResultSet result) throws PrivateConstructorsException, SQLException {
     T resultObject = null;
 

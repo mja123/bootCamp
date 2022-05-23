@@ -1,4 +1,4 @@
-package com.solvd.university.parsers;
+package com.solvd.university.parsers.XML;
 
 import com.solvd.university.model.Faculty;
 import org.apache.logging.log4j.LogManager;

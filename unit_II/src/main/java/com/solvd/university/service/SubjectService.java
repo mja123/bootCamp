@@ -1,6 +1,6 @@
 package com.solvd.university.service;
 
-import com.solvd.university.daos.SubjectDAO;
+import com.solvd.university.daos.mySqlImplementation.SubjectDAO;
 import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundException;
 import com.solvd.university.model.Subject;
 import org.apache.logging.log4j.LogManager;
