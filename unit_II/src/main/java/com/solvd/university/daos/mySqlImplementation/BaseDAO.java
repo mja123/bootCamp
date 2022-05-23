@@ -5,6 +5,7 @@ import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundE
 import com.solvd.university.daos.mySqlImplementation.exceptions.FullConnectionPoolException;
 import com.solvd.university.daos.interfaces.IBaseDAO;
 import com.solvd.university.daos.mySqlImplementation.exceptions.PrivateConstructorsException;
+import com.solvd.university.daos.mySqlImplementation.utils.ReflectionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.solvd.university.daos.mySqlImplementation.enums.EAttributesEntities.*;
+import static com.solvd.university.daos.mySqlImplementation.utils.StringUtil.parseAttribute;
 
 public abstract class BaseDAO<T> implements IBaseDAO<T> {
 
@@ -25,6 +27,8 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
   private Connection connection;
   private final String CLASS_NAME;
   private Class<T> instance;
+  private ReflectionUtil<T> reflectionUtil = new ReflectionUtil<>();
+  private Long id;
   private HashMap<String, String> classFields;
   private HashMap<String, Object> objectFields;
   private HashMap<String, String> declaredObjectFields;
@@ -69,22 +73,28 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     ConnectionPool.getInstance().goBackConnection(this.connection);
   }
 
-  //TODO: REQUEST THE ID IN THE OBJECT RECEIVED BUT, AVOID IT IN THE ATTRIBUTES TO MODIFY, ONLY USE IN THE WHERE PART OF THE QUERY
   @Override
   public void updateEntity(T entity) throws ElementNotFoundException {
     this.setConnection();
 
-    this.reflectionClass();
-    this.reflectionFields(entity);
+    this.classFields = reflectionUtil.reflectionClass(instance, CLASS_NAME, classFields);
+    this.objectFields = reflectionUtil.reflectionFields(entity, classFields, objectFields);
+    this.id = reflectionUtil.getId();
 
-    Long id = null;
     String update = "UPDATE " + this.TABLE_NAME + " SET ";
 
     int counter = 0;
-    for (String field : objectFields.keySet()) {
 
-      if (counter == objectFields.size() - 1) {
-        update = update.concat(field + " = ? WHERE " + ID.getATTRIBUTE() + " = " + id);
+    if(this.id == null) {
+      throw new ElementNotFoundException("You have to send the record's id.");
+    }
+
+    ArrayList<String> formatedFields = parseAttribute(objectFields);
+
+    for (String field : formatedFields) {
+
+      if (counter == formatedFields.size() - 1) {
+        update = update.concat(field + " = ? WHERE " + ID.getATTRIBUTE() + " = " + this.id);
       } else {
         update = update.concat(field + " = ?, ");
       }
@@ -99,10 +109,6 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     } catch (SQLException throwables) {
       LOGGER.error(throwables.getMessage());
     }
-
-    // TODO: FIX THE ORDER OF THE FIELDS AND REVIEW THE CREATED_AT FIELD IN REFLECTION_CLASS. ADD
-    // THE PLACEHOLDERS AND SET IT WITH THE ELEMENTS IN VALUES ARRAY
-
   }
 
   @Override
@@ -128,6 +134,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     int counter = 1;
     Object value = null;
     boolean found;
+    declaredObjectFields = reflectionUtil.declaredAttributesType(classFields, objectFields, declaredObjectFields);
     ArrayList<String> lastValue = new ArrayList<>();
 
     //Iterating for the datatype of the fields
@@ -146,7 +153,6 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
               found = true;
               break;
             }
-
           }
         }
         if (found)
@@ -166,6 +172,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
       counter++;
     }
   }
+
 
   private T parseResultSet(ResultSet result) throws PrivateConstructorsException, SQLException {
     T resultObject = null;
@@ -214,69 +221,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     return resultObject;
   }
 
-  private List<String> splitToString(T entity, Integer count) {
-    List<String> values = new ArrayList<>();
-
-    //TODO: FIX THE REGEX, WE NEED TO REMOVE THE EMPTIES, NULLS AND COMMAS ELEMENTS.
-    String[] allValues = entity.toString().split("[A-Za-z,{}]+=", count + 2);
-
-    values = Arrays.stream(allValues).filter(Objects::nonNull).collect(Collectors.toList());
-
-/*    for (String value : values) {
-      System.out.println(value);
-    }*/
-
-    return values;
-  }
-
-  private void reflectionFields(T entity) {
-    Class targetObject = entity.getClass();
-    Method[] methods = targetObject.getDeclaredMethods();
-
-
-    //Search for getMethods in the class comparing to 'get' + the field's identifiers
-    for (Method method : methods) {
-      for (String fieldName : classFields.keySet()) {
-        //Capitalizing the field identifier.
-        fieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-        //Searching for the getter of the fields
-        if (method.getName().equals("get" + fieldName)) {
-          try {
-            //Filling the map with field-value pair.
-            fieldName = fieldName.toLowerCase(Locale.ROOT);
-            if (method.invoke(entity) != null) {
-              objectFields.put(fieldName, method.invoke(entity));
-            }
-          } catch (IllegalAccessException | InvocationTargetException e) {
-            LOGGER.error(e);
-          }
-        }
-      }
-    }
-    //Filling declaredObjectFields map with the datatype-identifier pair initialized in the target object
-    for (String objectField : objectFields.keySet()) {
-      for (String classField : classFields.keySet()) {
-        if (objectField.equals(classField)) {
-          declaredObjectFields.put(objectField, classFields.get(classField));
-        }
-      }
-    }
-  }
-
-  private void reflectionClass() {
-    Field[] fields;
-    try {
-      this.instance = (Class<T>) Class.forName(CLASS_NAME);
-      fields = this.instance.getDeclaredFields();
-      //Get the declared fields and put in a map, key = type of field and value = identifier of the field
-      Arrays.stream(fields).forEach(p -> this.classFields.put(p.getName(), p.getType().getTypeName()));
-      //Arrays.stream(fields).forEach(p -> LOGGER.info("Name: " + p.getName() + ", type: " + p.getType().getTypeName()));
-    } catch (ClassNotFoundException e) {
-      LOGGER.error(e);
-    }
-  }
-
-  public void setConnection() {
+  private void setConnection() {
     try {
       this.connection = ConnectionPool.getInstance().getConnection();
     } catch (FullConnectionPoolException e) {
@@ -291,6 +236,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
   }
 
   public Connection getConnection() {
+    this.setConnection();
     return connection;
   }
 

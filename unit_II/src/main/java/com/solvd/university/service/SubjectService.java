@@ -11,13 +11,13 @@ public class SubjectService {
 
   public static void main(String[] args) {
     SubjectDAO subjectDAO = new SubjectDAO("subjects", "com.solvd.university.model.Subject");
-    Subject subject = new Subject("Esete es nuevo", 2, true);
+    Subject subject = new Subject(9L,"updated", 2, true);
 
 
     try {
-      //subjectDAO.updateEntity(subject);
+      subjectDAO.updateEntity(subject);
       //LOGGER.info(subjectDAO.getEntityByID(2L));
-      subjectDAO.removeEntity(14L);
+      //subjectDAO.removeEntity(14L);
     } catch (ElementNotFoundException e) {
       LOGGER.error(e.getMessage());
     }
