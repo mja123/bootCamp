@@ -7,16 +7,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DegreeService {
-    private static final Logger LOGGER = LogManager.getLogger(DegreeService.class);
+  private static final Logger LOGGER = LogManager.getLogger(DegreeService.class);
 
   public static void main(String[] args) {
-      DegreeDAO degreeDAO = new DegreeDAO("degrees", "com.solvd.university.model.Degree");
-      Degree degree = new Degree(1L, "Informatics", 4, 1L);
+    DegreeDAO degreeDAO = new DegreeDAO("degrees", "com.solvd.university.model.Degree");
+    Degree degree = new Degree(1L, "Informatics", 4, 1L);
 
-      try {
-          degreeDAO.updateEntity(degree);
-      } catch (ElementNotFoundException e) {
-          LOGGER.error(e.getMessage());
-      }
+    System.out.println(degreeDAO.getResultSetById(1L));
+    /*try {
+       degreeDAO.saveEntity(new Degree("Psychology", 4, 1L));
+
+      degreeDAO.updateEntity(new Degree(4L,"Design", 5, 1L));
+      degreeDAO.removeEntity(4L);
+    } catch (ElementNotFoundException e) {
+      LOGGER.error(e.getMessage());
+    }*/
   }
 }

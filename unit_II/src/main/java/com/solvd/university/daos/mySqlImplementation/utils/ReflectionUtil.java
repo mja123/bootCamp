@@ -9,15 +9,16 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ReflectionUtil<T> {
   private static final Logger LOGGER = LogManager.getLogger(ReflectionUtil.class);
 
   private Long id;
-  public HashMap<String, Object> reflectionFields(
+  public ConcurrentHashMap<String, Object> reflectionFields(
       T entity,
-      HashMap<String, String> classFields,
-      HashMap<String, Object> objectFields) {
+      ConcurrentHashMap<String, String> classFields,
+      ConcurrentHashMap<String, Object> objectFields) {
     Class targetObject = entity.getClass();
     Method[] methods = targetObject.getDeclaredMethods();
 
@@ -52,10 +53,10 @@ public class ReflectionUtil<T> {
     return objectFields;
   }
 
-  public HashMap<String, String> declaredAttributesType(
-      HashMap<String, String> classFields,
-      HashMap<String, Object> objectFields,
-      HashMap<String, String> declaredObjectFields) {
+  public ConcurrentHashMap<String, String> declaredAttributesType(
+          ConcurrentHashMap<String, String> classFields,
+          ConcurrentHashMap<String, Object> objectFields,
+          ConcurrentHashMap<String, String> declaredObjectFields) {
     // Filling declaredObjectFields map with the datatype-identifier pair initialized in the target
     // object
     for (String objectField : objectFields.keySet()) {
@@ -68,8 +69,8 @@ public class ReflectionUtil<T> {
     return declaredObjectFields;
   }
 
-  public HashMap<String, String> reflectionClass(
-      Class<T> instance, String CLASS_NAME, HashMap<String, String> classFields) {
+  public ConcurrentHashMap<String, String> reflectionClass(
+      Class<T> instance, String CLASS_NAME, ConcurrentHashMap<String, String> classFields) {
     Field[] fields;
     try {
       instance = (Class) Class.forName(CLASS_NAME);

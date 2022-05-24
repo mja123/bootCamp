@@ -23,7 +23,7 @@ public class SubjectDAO extends BaseDAO<Subject> {
     @Override
     public Subject getEntityByID(Long id) throws ElementNotFoundException {
         Subject subject = null;
-        ResultSet result = this.getResultSetById(id);
+/*        ResultSet result = this.getResultSetById(id);
         System.out.println(result + " getEntitybyid");
 
         try {
@@ -36,6 +36,7 @@ public class SubjectDAO extends BaseDAO<Subject> {
         } finally {
             ConnectionPool.getInstance().goBackConnection(this.getConnection());
         }
+        */
         return subject;
     }
 
