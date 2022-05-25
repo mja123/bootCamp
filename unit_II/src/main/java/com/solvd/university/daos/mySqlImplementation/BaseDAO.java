@@ -6,6 +6,7 @@ import com.solvd.university.daos.mySqlImplementation.exceptions.FullConnectionPo
 import com.solvd.university.daos.interfaces.IBaseDAO;
 import com.solvd.university.daos.mySqlImplementation.exceptions.PrivateConstructorsException;
 import com.solvd.university.daos.mySqlImplementation.utils.ReflectionUtil;
+import com.solvd.university.daos.mySqlImplementation.utils.SqlUtil;
 import com.solvd.university.daos.mySqlImplementation.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 import static com.solvd.university.daos.mySqlImplementation.enums.EAttributesEntities.*;
 import static com.solvd.university.daos.mySqlImplementation.utils.StringUtil.attributeToColumn;
 
-public abstract class BaseDAO<T> implements IBaseDAO<T> {
+public class BaseDAO<T> implements IBaseDAO<T> {
 
   //TODO:
   /*
@@ -35,7 +36,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
   private Connection connection;
   private final String CLASS_NAME;
   private Class<T> instance;
-  private final ReflectionUtil<T> REFLECTION = new ReflectionUtil<>();
+  private final ReflectionUtil<T> REFLECTION;
   private Long id;
   private ConcurrentHashMap<String, String> classFields;
   private ConcurrentHashMap<String, Object> objectFields;
@@ -47,6 +48,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     classFields = new ConcurrentHashMap<>();
     objectFields = new ConcurrentHashMap<>();
     declaredObjectFields = new ConcurrentHashMap<>();
+    this.REFLECTION = new ReflectionUtil<>(this.CLASS_NAME);
     this.setInstance();
   }
 
@@ -61,7 +63,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
       PreparedStatement getEntity = connection.prepareStatement(select);
       ResultSet result = getEntity.executeQuery();
 
-      return this.parseResultSet(result, instance, classFields);
+      return this.parseResultSet(result);
 
     } catch (SQLException | PrivateConstructorsException throwables) {
       LOGGER.error(throwables);
@@ -77,12 +79,17 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
   }
 
   @Override
+  public T getEntityByID(Long id) throws ElementNotFoundException {
+    return null;
+  }
+
+  @Override
   public void saveEntity(T entity) {
     this.setConnection();
     String create = "INSERT INTO " + this.TABLE_NAME + "(";
 
     if (classFields.isEmpty()) {
-      REFLECTION.reflectionClass(this.instance, this.CLASS_NAME, this.classFields);
+      REFLECTION.reflectionClass(this.classFields);
     }
     REFLECTION.reflectionFields(entity, classFields, objectFields);
 
@@ -127,7 +134,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
     this.setConnection();
 
     if (classFields.isEmpty()) {
-      REFLECTION.reflectionClass(this.instance, this.CLASS_NAME, this.classFields);
+      REFLECTION.reflectionClass(this.classFields);
     }
 
     this.objectFields = REFLECTION.reflectionFields(entity, classFields, objectFields);
@@ -230,7 +237,7 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
 
 
   //In process
-  private T parseResultSet(ResultSet result, Class<T> instance, ConcurrentHashMap<String, String> classFields) throws PrivateConstructorsException, SQLException {
+  private T parseResultSet(ResultSet result) throws PrivateConstructorsException, SQLException {
     T resultObject = null;
 
     Constructor<T>[] constructors = (Constructor<T>[]) instance.getConstructors();
@@ -254,22 +261,39 @@ public abstract class BaseDAO<T> implements IBaseDAO<T> {
    Method[] methods = resultObject.getClass().getDeclaredMethods();
 
     if (classFields.isEmpty()) {
-      classFields = REFLECTION.reflectionClass(this.instance, this.CLASS_NAME, classFields);
+      REFLECTION.reflectionClass(classFields);
     }
 
-   objectFields = StringUtil.elementsInResultSet(result, classFields.size());
-//TODO: RESOLVE THE TYPES PROBLEMS IN ID (in objectFields are like Integer but we need Long types) and Dates types
+    //ConcurrentHashMap<String, Object>
+    //Fill objectFields with the column-value in the ResultSet.
+    objectFields = SqlUtil.elementsInResultSet(result, classFields.size());
+
+    //TODO: RESOLVE THE PROBLEM IN THIS METHOD
+    REFLECTION.castColumnsToAttributes(objectFields);
+    //Parse the snake_case keys in db to camelCase for fields.
+    StringUtil.columnsToAttributes(objectFields);
+
+   /* objectFields.forEach(
+            (k, v) -> {
+              System.out.println("Field: " + k + ", type: " + v);
+            });
+*/
    for(Method method : methods) {
+     //Search only setters
      if (!(method.getName().substring(0, 3).equals("set"))) {
        continue;
      }
      try {
+       //In the setter, this separate the field's name and format it like field definition.
        String keyField = method.getName().substring(3, method.getName().length());
        keyField = keyField.substring(0, 1).toLowerCase(Locale.ROOT) + keyField.substring(1);
 
+       //Set the parameter with the value of the attribute in the HashMap
+       // (objectFields has the formatted result in the ResultSet)
        Object parameter = objectFields.get(keyField);
        System.out.println(keyField);
        System.out.println(parameter);
+       //Invoke the setter with the parameter
        method.invoke(resultObject, parameter);
      } catch (IllegalAccessException | InvocationTargetException e) {
        LOGGER.error(e.getMessage());

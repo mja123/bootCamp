@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
@@ -13,12 +14,18 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ReflectionUtil<T> {
   private static final Logger LOGGER = LogManager.getLogger(ReflectionUtil.class);
-
+  private Class<T> instance;
   private Long id;
+
+  public ReflectionUtil(String className) {
+    targetClass(className);
+  }
+
   public ConcurrentHashMap<String, Object> reflectionFields(
       T entity,
       ConcurrentHashMap<String, String> classFields,
       ConcurrentHashMap<String, Object> objectFields) {
+
     Class targetObject = entity.getClass();
     Method[] methods = targetObject.getDeclaredMethods();
 
@@ -54,9 +61,10 @@ public class ReflectionUtil<T> {
   }
 
   public ConcurrentHashMap<String, String> declaredAttributesType(
-          ConcurrentHashMap<String, String> classFields,
-          ConcurrentHashMap<String, Object> objectFields,
-          ConcurrentHashMap<String, String> declaredObjectFields) {
+      ConcurrentHashMap<String, String> classFields,
+      ConcurrentHashMap<String, Object> objectFields,
+      ConcurrentHashMap<String, String> declaredObjectFields) {
+
     // Filling declaredObjectFields map with the datatype-identifier pair initialized in the target
     // object
     for (String objectField : objectFields.keySet()) {
@@ -69,25 +77,69 @@ public class ReflectionUtil<T> {
     return declaredObjectFields;
   }
 
-  public ConcurrentHashMap<String, String> reflectionClass(
-      Class<T> instance, String CLASS_NAME, ConcurrentHashMap<String, String> classFields) {
+  public ConcurrentHashMap<String, String> reflectionClass(ConcurrentHashMap<String, String> classFields) {
     Field[] fields;
-    try {
-      instance = (Class) Class.forName(CLASS_NAME);
-      fields = instance.getDeclaredFields();
-      // Get the declared fields and put in a map, key = type of field and value = identifier of the
-      // field
-      Arrays.stream(fields).forEach(p -> classFields.put(p.getName(), p.getType().getTypeName()));
-    } catch (ClassNotFoundException e) {
-      LOGGER.error(e);
-    }
+
+    fields = instance.getDeclaredFields();
+    // Get the declared fields and put in a map, key = type of field and value = identifier of the
+    // field
+    Arrays.stream(fields).forEach(p -> classFields.put(p.getName(), p.getType().getTypeName()));
+
     return classFields;
   }
+
+  public void classFieldsTypes(ConcurrentHashMap<String, Object> classFields) {
+    Field[] fields;
+
+    fields = instance.getDeclaredFields();
+    // Get the declared fields and put in a map, key = type of field and value = identifier of the
+    // field
+    Arrays.stream(fields).forEach(p -> classFields.put(p.getName(), p.getType()));
+  }
+  public void castColumnsToAttributes(
+      ConcurrentHashMap<String, Object> columns) {
+
+      ConcurrentHashMap<String, Object> fieldsTypes = new ConcurrentHashMap<>();
+      ArrayList<String> fieldsUsed = new ArrayList<>();
+      classFieldsTypes(fieldsTypes);
+
+      for (String column : columns.keySet()) {
+        for (String field : fieldsTypes.keySet()) {
+          if (fieldsUsed.contains(field)) {
+            continue;
+          }
+          if (column.equals(field)) {
+            //TODO: FIND THE WAY TO CAST THE COLUMN VALUE TO THE TYPE IN FIELDSTYPES.
+          System.out.println("Column: " + column + "cast: " +fieldsTypes.get(field).getClass().cast(columns.get(column)).getClass());
+            columns.put(column, columns.get(column).getClass().cast(fieldsTypes.get(field)));
+            fieldsUsed.add(field);
+          }
+        }
+      }
+  }
+  private void targetClass(String className) {
+    if (instance == null) {
+      try {
+        instance = (Class) Class.forName(className);
+      } catch (ClassNotFoundException e) {
+        LOGGER.error(e);
+      }
+    }
+  }
+
   public Long getId() {
     return id;
   }
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public Class<T> getInstance() {
+    return instance;
+  }
+
+  public void setInstance(Class<T> instance) {
+    this.instance = instance;
   }
 }

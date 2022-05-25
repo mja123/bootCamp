@@ -14,13 +14,13 @@ public class DegreeService {
     Degree degree = new Degree(1L, "Informatics", 4, 1L);
 
     System.out.println(degreeDAO.getResultSetById(1L));
-    /*try {
-       degreeDAO.saveEntity(new Degree("Psychology", 4, 1L));
+    //degreeDAO.saveEntity(new Degree("Computer Science", 5, 1L));
 
-      degreeDAO.updateEntity(new Degree(4L,"Design", 5, 1L));
-      degreeDAO.removeEntity(4L);
-    } catch (ElementNotFoundException e) {
-      LOGGER.error(e.getMessage());
-    }*/
+/*   try {
+     degreeDAO.updateEntity(new Degree(4L,"Design", 5, 1L));
+     degreeDAO.removeEntity(4L);
+   } catch (ElementNotFoundException e) {
+     LOGGER.error(e.getMessage());
+   }*/
   }
 }
