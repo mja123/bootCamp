@@ -13,7 +13,11 @@ public class DegreeService {
     DegreeDAO degreeDAO = new DegreeDAO("degrees", "com.solvd.university.model.Degree");
     Degree degree = new Degree(1L, "Informatics", 4, 1L);
 
-    System.out.println(degreeDAO.getResultSetById(1L));
+    try {
+      System.out.println(degreeDAO.getResultSetById(5L));
+    } catch (ElementNotFoundException e) {
+      LOGGER.error(e);
+    }
     //degreeDAO.saveEntity(new Degree("Computer Science", 5, 1L));
 
 /*   try {

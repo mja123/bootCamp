@@ -1,5 +1,7 @@
 package com.solvd.university.daos.mySqlImplementation.utils;
 
+import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -7,10 +9,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SqlUtil {
 
   public static ConcurrentHashMap<String, Object> elementsInResultSet(
-      ResultSet result, int countOfFields) throws SQLException {
+      ResultSet result, int countOfFields) throws SQLException, ElementNotFoundException {
 
     ConcurrentHashMap<String, Object> fieldsResultSet = new ConcurrentHashMap<>();
-
+    Boolean nullObject = false;
     // Fill a HashMap with the name of the columns in the row and the respective value.
     if (result.next()) {
       for (int i = 1; i < (countOfFields + 1); i++) {
@@ -18,7 +20,11 @@ public class SqlUtil {
           continue;
         }
         fieldsResultSet.put(result.getMetaData().getColumnLabel(i), result.getObject(i));
+        nullObject = true;
       }
+    }
+    if (!nullObject) {
+      throw new ElementNotFoundException("This record doesn't exist");
     }
     return fieldsResultSet;
   }

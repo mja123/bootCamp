@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Degree {
   @JsonProperty private Long id;
@@ -12,11 +13,11 @@ public class Degree {
 
   @JsonProperty
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh-mm-ss")
-  private Date createdAt;
+  private Timestamp createdAt;
 
   @JsonProperty
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh-mm-ss")
-  private Date deletedAt;
+  private Timestamp deletedAt;
 
   @JsonProperty private Long facultiesId;
 
@@ -36,7 +37,7 @@ public class Degree {
   }
 
   public Degree(
-      Long id, String name, Integer duration, Date createdAt, Date deletedAt, Long facultiesId) {
+      Long id, String name, Integer duration, Timestamp createdAt, Timestamp deletedAt, Long facultiesId) {
     this.id = id;
     this.name = name;
     this.duration = duration;
@@ -69,19 +70,19 @@ public class Degree {
     this.duration = duration;
   }
 
-  public Date getCreatedAt() {
+  public Timestamp getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(Timestamp createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getDeletedAt() {
+  public Timestamp getDeletedAt() {
     return deletedAt;
   }
 
-  public void setDeletedAt(Date deletedAt) {
+  public void setDeletedAt(Timestamp deletedAt) {
     this.deletedAt = deletedAt;
   }
 

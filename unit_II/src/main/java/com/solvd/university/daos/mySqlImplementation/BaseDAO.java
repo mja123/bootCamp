@@ -52,18 +52,19 @@ public class BaseDAO<T> implements IBaseDAO<T> {
     this.setInstance();
   }
 
-  public T getResultSetById(Long id) {
+  @Override
+  public T getEntityByID(Long id) throws ElementNotFoundException {
     setConnection();
 
     String select =
         "SELECT * FROM " + this.TABLE_NAME + " WHERE " + ID.getATTRIBUTE() + " = " + id + ";";
 
-    System.out.println(select);
+    T entityResult = null;
     try {
       PreparedStatement getEntity = connection.prepareStatement(select);
       ResultSet result = getEntity.executeQuery();
 
-      return this.parseResultSet(result);
+      entityResult = this.parseResultSet(result);
 
     } catch (SQLException | PrivateConstructorsException throwables) {
       LOGGER.error(throwables);
@@ -75,14 +76,8 @@ public class BaseDAO<T> implements IBaseDAO<T> {
         LOGGER.error(e.getMessage());
       }*/
     }
-    return null;
+    return entityResult;
   }
-
-  @Override
-  public T getEntityByID(Long id) throws ElementNotFoundException {
-    return null;
-  }
-
   @Override
   public void saveEntity(T entity) {
     this.setConnection();
@@ -197,7 +192,8 @@ public class BaseDAO<T> implements IBaseDAO<T> {
     boolean found;
     declaredObjectFields = REFLECTION.declaredAttributesType(classFields, objectFields, declaredObjectFields);
     ArrayList<String> lastValue = new ArrayList<>();
-
+//TODO: REFACTOR:
+// Instead declaredObjectFields.keySet() forEach use declaredObjectFields.get(type)
     //Iterating for the datatype of the fields
     for (String type : declaredObjectFields.values()) {
       //Iterating for the identifiers
@@ -237,26 +233,9 @@ public class BaseDAO<T> implements IBaseDAO<T> {
 
 
   //In process
-  private T parseResultSet(ResultSet result) throws PrivateConstructorsException, SQLException {
-    T resultObject = null;
+  private T parseResultSet(ResultSet result) throws PrivateConstructorsException, SQLException, ElementNotFoundException {
 
-    Constructor<T>[] constructors = (Constructor<T>[]) instance.getConstructors();
-
-    //It is instantiating an object with the default constructor.
-     if (constructors.length != 0) {
-       for (Constructor<T> constructor : constructors) {
-         try {
-           if (constructor.getParameterCount() == 0) {
-             resultObject = constructor.newInstance();
-             break;
-           }
-         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
-           e.printStackTrace();
-         }
-       }
-    } else {
-      throw new PrivateConstructorsException("We can not initialize the class, because it has private constructors");
-    }
+    T resultObject = REFLECTION.newEmptyObject();
 
    Method[] methods = resultObject.getClass().getDeclaredMethods();
 
@@ -264,20 +243,13 @@ public class BaseDAO<T> implements IBaseDAO<T> {
       REFLECTION.reflectionClass(classFields);
     }
 
-    //ConcurrentHashMap<String, Object>
     //Fill objectFields with the column-value in the ResultSet.
     objectFields = SqlUtil.elementsInResultSet(result, classFields.size());
-
-    //TODO: RESOLVE THE PROBLEM IN THIS METHOD
-    REFLECTION.castColumnsToAttributes(objectFields);
     //Parse the snake_case keys in db to camelCase for fields.
     StringUtil.columnsToAttributes(objectFields);
+    //Cast the type of column's fields to their respective type in the object.
+    REFLECTION.castValues(classFields, objectFields);
 
-   /* objectFields.forEach(
-            (k, v) -> {
-              System.out.println("Field: " + k + ", type: " + v);
-            });
-*/
    for(Method method : methods) {
      //Search only setters
      if (!(method.getName().substring(0, 3).equals("set"))) {
@@ -291,15 +263,13 @@ public class BaseDAO<T> implements IBaseDAO<T> {
        //Set the parameter with the value of the attribute in the HashMap
        // (objectFields has the formatted result in the ResultSet)
        Object parameter = objectFields.get(keyField);
-       System.out.println(keyField);
-       System.out.println(parameter);
        //Invoke the setter with the parameter
        method.invoke(resultObject, parameter);
      } catch (IllegalAccessException | InvocationTargetException e) {
        LOGGER.error(e.getMessage());
      }
    }
-   return resultObject = instance.cast(resultObject);
+   return instance.cast(resultObject);
   }
 
   private void setConnection() {

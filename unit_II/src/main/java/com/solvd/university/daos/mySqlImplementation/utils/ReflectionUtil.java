@@ -1,11 +1,14 @@
 package com.solvd.university.daos.mySqlImplementation.utils;
 
+import com.solvd.university.daos.mySqlImplementation.exceptions.PrivateConstructorsException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -95,28 +98,59 @@ public class ReflectionUtil<T> {
     // Get the declared fields and put in a map, key = type of field and value = identifier of the
     // field
     Arrays.stream(fields).forEach(p -> classFields.put(p.getName(), p.getType()));
+    classFields.forEach((k, v) -> System.out.println("Field: " + k + "Type: " +  v));
+
+    classFields.forEach((k, v) ->
+            System.out.println(v.equals("java.lang.Long")));
+
   }
-  public void castColumnsToAttributes(
-      ConcurrentHashMap<String, Object> columns) {
 
-      ConcurrentHashMap<String, Object> fieldsTypes = new ConcurrentHashMap<>();
-      ArrayList<String> fieldsUsed = new ArrayList<>();
-      classFieldsTypes(fieldsTypes);
-
-      for (String column : columns.keySet()) {
-        for (String field : fieldsTypes.keySet()) {
-          if (fieldsUsed.contains(field)) {
-            continue;
-          }
-          if (column.equals(field)) {
-            //TODO: FIND THE WAY TO CAST THE COLUMN VALUE TO THE TYPE IN FIELDSTYPES.
-          System.out.println("Column: " + column + "cast: " +fieldsTypes.get(field).getClass().cast(columns.get(column)).getClass());
-            columns.put(column, columns.get(column).getClass().cast(fieldsTypes.get(field)));
-            fieldsUsed.add(field);
+  public void castValues(ConcurrentHashMap<String, String> declaredObjectFields, ConcurrentHashMap<String, Object> objectFields) {
+    for (String identifier : declaredObjectFields.keySet()) {
+      for (String field : objectFields.keySet()) {
+        if (identifier.equals(field)) {
+          switch (declaredObjectFields.get(identifier)) {
+            case "java.lang.Long":
+              Integer integerValue = (Integer) objectFields.get(field);
+              Long longObject =  Long.valueOf(integerValue);
+              objectFields.put(identifier, longObject);
+              break;
+            case "java.util.Date":
+              if (!(objectFields.get(field).toString().contains(" "))) {
+                Date sqlDateValue = (Date) objectFields.get(field);
+                java.util.Date utilDateObject = sqlDateValue;
+                objectFields.put(identifier, utilDateObject);
+              }
+            default:
+              continue;
           }
         }
       }
+    }
   }
+
+  public T newEmptyObject() throws PrivateConstructorsException {
+    T resultObject = null;
+    Constructor<T>[] constructors = (Constructor<T>[]) instance.getConstructors();
+
+    //It is instantiating an object with the default constructor.
+    if (constructors.length != 0) {
+      for (Constructor<T> constructor : constructors) {
+        try {
+          if (constructor.getParameterCount() == 0) {
+            resultObject = constructor.newInstance();
+            break;
+          }
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
+          e.printStackTrace();
+        }
+      }
+    } else {
+      throw new PrivateConstructorsException("We can not initialize the class, because it has private constructors");
+    }
+    return resultObject;
+  }
+
   private void targetClass(String className) {
     if (instance == null) {
       try {
@@ -126,7 +160,6 @@ public class ReflectionUtil<T> {
       }
     }
   }
-
   public Long getId() {
     return id;
   }
