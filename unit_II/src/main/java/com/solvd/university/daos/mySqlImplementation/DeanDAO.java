@@ -1,6 +1,7 @@
 package com.solvd.university.daos.mySqlImplementation;
 
 import com.solvd.university.daos.mySqlImplementation.connectionPool.ConnectionPool;
+import com.solvd.university.daos.mySqlImplementation.connectionPool.IListener;
 import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundException;
 import com.solvd.university.daos.mySqlImplementation.exceptions.FullConnectionPoolException;
 import com.solvd.university.daos.interfaces.IDeanDAO;
@@ -10,13 +11,19 @@ import static com.solvd.university.daos.mySqlImplementation.enums.EAttributesEnt
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.sql.*;
 
-public class DeanDAO implements IDeanDAO {
+public class DeanDAO implements IDeanDAO, IListener {
 
   private static final Logger LOGGER = LogManager.getLogger(DeanDAO.class);
   private final String TABLE_NAME = "deans";
   private Connection connection = null;
+
+  //Subscribing to the ConnectionPool's notification list.
+  public DeanDAO() {
+    this.subscribeToNotifications();
+  }
 
   @Override
   public Dean getEntityByID(Long id) throws ElementNotFoundException {
@@ -154,13 +161,25 @@ public class DeanDAO implements IDeanDAO {
     try {
       this.connection = ConnectionPool.getInstance().getConnection();
 
-      if (this.connection == null) {
-        throw new FullConnectionPoolException("We couldn't get a connection");
-      }
-    } catch (FullConnectionPoolException e) {
+    } catch (FullConnectionPoolException | SQLException | IOException e) {
       LOGGER.error(e.getMessage());
       LOGGER.info("Trying again...");
-      setConnection();
+      //try {
+        //this.wait();
+      //} catch (InterruptedException ex) {
+     //   LOGGER.error(ex.getMessage());
+     // }
+    }
+  }
+
+  private void subscribeToNotifications() {
+    ConnectionPool.getInstance().addListener(this);
+  }
+
+  @Override
+  public void notification() {
+    if (connection == null) {
+      this.setConnection();
     }
   }
 }

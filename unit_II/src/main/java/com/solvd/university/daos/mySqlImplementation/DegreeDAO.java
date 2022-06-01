@@ -8,9 +8,4 @@ public class DegreeDAO extends BaseDAO<Degree> {
     public DegreeDAO(String tableName, String className) {
         super(tableName, className);
     }
-
-    @Override
-    public Degree getEntityByID(Long id) throws ElementNotFoundException {
-        return null;
-    }
 }

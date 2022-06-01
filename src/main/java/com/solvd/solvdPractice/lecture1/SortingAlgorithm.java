@@ -91,6 +91,3 @@ public class SortingAlgorithm {
         System.out.println(" ");
     }
 }
-
-
-//TODO: Get the numbers to parameters in the main method.

@@ -2,6 +2,7 @@ package com.solvd.university.service;
 
 import com.solvd.university.daos.mySqlImplementation.SubjectDAO;
 import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundException;
+import com.solvd.university.model.EntityBuilder;
 import com.solvd.university.model.Subject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +12,7 @@ public class SubjectService {
 
   public static void main(String[] args) {
     SubjectDAO subjectDAO = new SubjectDAO("subjects", "com.solvd.university.model.Subject");
-    Subject subject = new Subject(9L,"updated", 2, true);
+    Subject subject = EntityBuilder.subject();
 
 
     try {

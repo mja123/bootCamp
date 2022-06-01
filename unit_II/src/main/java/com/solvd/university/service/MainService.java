@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import static com.solvd.university.service.enums.EDataBaseProvider.*;
 
-public class MainService {
+public class MainService <T>{
     private static final Logger LOGGER = LogManager.getLogger(MainService.class);
     private EDataBaseProvider DAOFactory;
     private String entity;
@@ -35,22 +35,16 @@ public class MainService {
         }
     }
 
-    public void entityToWork(EEntities entity) {
-        try {
-            setDataBaseProvider(MY_SQL);
-        } catch (DataBaseProviderException e) {
-            LOGGER.error(e.getMessage());
-        }
-
+    public IService<T> getEntityService(EEntities entity) {
         switch (entity) {
             case DEAN:
-                DeanService deanService = new DeanService();
-                break;
+                //return new DeanService();
             case SUBJECT:
                 SubjectService subjectService = new SubjectService();
                 //subjectService.getSubject();
 
         }
+        return null;
     }
 
 

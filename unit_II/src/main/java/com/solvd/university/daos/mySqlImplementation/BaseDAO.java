@@ -11,6 +11,7 @@ import com.solvd.university.daos.mySqlImplementation.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.lang.reflect.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,12 +25,6 @@ import static com.solvd.university.daos.mySqlImplementation.enums.EAttributesEnt
 import static com.solvd.university.daos.mySqlImplementation.utils.StringUtil.attributeToColumn;
 
 public class BaseDAO<T> implements IBaseDAO<T> {
-
-  //TODO:
-  /*
-  - ADD REACTIVE COMPONENTS IN POOL CONNECTION
-  - CREATE METHOD
-   */
 
   private static final Logger LOGGER = LogManager.getLogger(BaseDAO.class);
   private final String TABLE_NAME;
@@ -60,21 +55,17 @@ public class BaseDAO<T> implements IBaseDAO<T> {
         "SELECT * FROM " + this.TABLE_NAME + " WHERE " + ID.getATTRIBUTE() + " = " + id + ";";
 
     T entityResult = null;
-    try {
-      PreparedStatement getEntity = connection.prepareStatement(select);
-      ResultSet result = getEntity.executeQuery();
+    try (PreparedStatement getEntity = connection.prepareStatement(select);
+         ResultSet result = getEntity.executeQuery()){
 
       entityResult = this.parseResultSet(result);
 
     } catch (SQLException | PrivateConstructorsException throwables) {
       LOGGER.error(throwables);
     } finally {
-      // ConnectionPool.getInstance().goBackConnection(this.connection);
-/*      try {
-        getEntity.close();
-      } catch (SQLException e) {
-        LOGGER.error(e.getMessage());
-      }*/
+       ConnectionPool.getInstance().goBackConnection(this.connection);
+      this.objectFields.clear();
+      this.declaredObjectFields.clear();
     }
     return entityResult;
   }
@@ -154,15 +145,22 @@ public class BaseDAO<T> implements IBaseDAO<T> {
       }
       counter++;
     }
-
-    try  {
-      PreparedStatement updateRow = this.connection.prepareStatement(update);
+    PreparedStatement updateRow = null;
+    try {
+      updateRow = this.connection.prepareStatement(update);
       setPlaceHolders(updateRow);
       System.out.println(updateRow);
       updateRow.executeUpdate();
     } catch (SQLException throwables) {
       LOGGER.error(throwables.getMessage());
     } finally {
+      try {
+        if (updateRow != null) {
+          updateRow.close();
+        }
+      } catch (SQLException e) {
+        LOGGER.error(e);
+      }
       ConnectionPool.getInstance().goBackConnection(this.connection);
       this.declaredObjectFields.clear();
       this.objectFields.clear();
@@ -189,34 +187,21 @@ public class BaseDAO<T> implements IBaseDAO<T> {
   private void setPlaceHolders(PreparedStatement query) throws SQLException {
     int counter = 1;
     Object value = null;
-    boolean found;
     declaredObjectFields = REFLECTION.declaredAttributesType(classFields, objectFields, declaredObjectFields);
-    ArrayList<String> lastValue = new ArrayList<>();
-//TODO: REFACTOR:
-// Instead declaredObjectFields.keySet() forEach use declaredObjectFields.get(type)
+
     //Iterating for the datatype of the fields
-    for (String type : declaredObjectFields.values()) {
-      //Iterating for the identifiers
-      for (String identifier : declaredObjectFields.keySet()) {
-        found = false;
-        //Iterating for the identifiers of the fields
-        for (String field : objectFields.keySet()) {
-          //Set variable value with the value of the field.
-          if( identifier.equals(field)) {
-            //Search if the identifier is not someone that was used.
-            if (!lastValue.contains(identifier)) {
-              value = objectFields.get(identifier);
-              lastValue.add(identifier);
-              found = true;
-              break;
-            }
+    for (String identifier : declaredObjectFields.keySet()) {
+      //Iterating for the identifiers of the fields
+      for (String field : objectFields.keySet()) {
+        //Set variable value with the value of the field.
+        if (identifier.equals(field)) {
+          //Search if the identifier is not someone that was used.
+            value = objectFields.get(field);
+            break;
           }
         }
-        if (found)
-          break;
-      }
 
-      switch (type) {
+      switch (declaredObjectFields.get(identifier)) {
         case "java.lang.Long" -> query.setLong(counter, (Long) value);
         case "java.lang.Integer" -> query.setInt(counter, (Integer) value);
         case "java.lang.String" -> query.setString(counter, (String) value);
@@ -228,7 +213,6 @@ public class BaseDAO<T> implements IBaseDAO<T> {
       }
       counter++;
     }
-    lastValue.clear();
   }
 
 
@@ -275,7 +259,7 @@ public class BaseDAO<T> implements IBaseDAO<T> {
   private void setConnection() {
     try {
       this.connection = ConnectionPool.getInstance().getConnection();
-    } catch (FullConnectionPoolException e) {
+    } catch (FullConnectionPoolException | SQLException | IOException e) {
       LOGGER.error(e.getMessage());
       this.setConnection();
     }

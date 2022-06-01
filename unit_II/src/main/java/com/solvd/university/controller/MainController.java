@@ -4,43 +4,45 @@ import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundE
 import com.solvd.university.daos.mySqlImplementation.DeanDAO;
 import com.solvd.university.model.Dean;
 
+import com.solvd.university.model.EntityBuilder;
+import com.solvd.university.service.DeanService;
+import com.solvd.university.service.DegreeService;
+import com.solvd.university.service.StudentService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class MainController {
+  //TODO: ADD LISTENER PATTERN AND TRY TO IMPLEMENT THE NOTIFY AND WAIT IN THE DAO.
   private static final Logger LOGGER = LogManager.getLogger(MainController.class);
 
   public static void main(String[] args) {
-    //region StudentDAO
-  /*
-    StudentDAO students = new StudentDAO();
-    try {
-      LOGGER.info(students.getEntityByID(16L).toString());
-    } catch (ElementNotFoundException e) {
-      LOGGER.error(e.getMessage());
-    }
-   Student student = new Student("German", "german@gmail.com", 32, 3);
-    students.saveEntity(student);
 
-    Long id = student.getId();
-    LOGGER.info(id);
-    try {
-      students.removeEntity(30L);
-    } catch (ElementNotFoundException e) {
-      LOGGER.error(e.getMessage());
-      */
-    //endregion
+    StudentService studentService = new StudentService();
 
-    //region DeansDAO
-    DeanDAO deans = new DeanDAO();
+    studentService.getStudent(43L);
+    //TODO: FIX THE PROBLEM IN THE SAVE METHOD, THE ID IS AUTOINCREMENT BUT THE RECORD DOESN'T APPEAR
+    //region Concurrent tests
+/*    DeanService deanService = new DeanService();
+    DeanService deanService2 = new DeanService();
+    DeanService deanService3 = new DeanService();
+    DeanService deanService4 = new DeanService();
+    DeanService deanService5 = new DeanService();
+    DeanService deanService6 = new DeanService();
+    DeanService deanService7 = new DeanService();
+    DeanService deanService8 = new DeanService();
+    DeanService deanService9 = new DeanService();
+    DeanService deanService10 = new DeanService();
 
-    try {
-      LOGGER.info(deans.getEntityByID(1L));
-      deans.updateEntity(new Dean(3L, "Sandez", 50, "Electronic engineer", 1L));
-      deans.removeEntity(3L);
-    } catch (ElementNotFoundException e) {
-      LOGGER.error(e.getMessage());
-    }
+    deanService.run();
+    deanService2.run();
+    deanService3.run();
+    deanService4.run();
+    deanService5.run();
+    deanService6.run();
+    deanService7.run();
+    deanService8.run();
+    deanService9.run();
+    deanService10.run();*/
     //endregion
 
 

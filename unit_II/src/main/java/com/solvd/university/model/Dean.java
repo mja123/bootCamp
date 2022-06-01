@@ -12,6 +12,13 @@ public class Dean {
   private Long facultiesId;
   public Dean() {}
 
+  public Dean(String name, Integer age, String profession, Long facultiesId) {
+    this.name = name;
+    this.age = age;
+    this.profession = profession;
+    this.facultiesId = facultiesId;
+  }
+
   public Dean(Long id, String name, Integer age, String profession, Long facultiesId) {
     this.id = id;
     this.name = name;

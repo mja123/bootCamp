@@ -1,6 +1,7 @@
 package com.solvd.university.daos.mySqlImplementation;
 
 import com.solvd.university.daos.mySqlImplementation.connectionPool.ConnectionPool;
+import com.solvd.university.daos.mySqlImplementation.connectionPool.IListener;
 import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundException;
 import com.solvd.university.daos.mySqlImplementation.exceptions.FullConnectionPoolException;
 import com.solvd.university.daos.interfaces.IStudentDAO;
@@ -10,13 +11,19 @@ import org.apache.logging.log4j.Logger;
 
 import static com.solvd.university.daos.mySqlImplementation.enums.EAttributesEntities.*;
 
+import java.io.IOException;
 import java.sql.*;
 
-public class StudentDAO implements IStudentDAO {
+public class StudentDAO implements IStudentDAO, IListener {
 
   private static final Logger LOGGER = LogManager.getLogger(StudentDAO.class);
   private static Connection connection = null;
   private final String TABLE_NAME = "students";
+
+  // Subscribing to the ConnectionPool's notification list.
+  public StudentDAO() {
+    this.subscribeToNotifications();
+  }
 
   @Override
   public Student getEntityByID(Long id) throws ElementNotFoundException {
@@ -47,6 +54,7 @@ public class StudentDAO implements IStudentDAO {
   @Override
   public void saveEntity(Student entity) {
 
+    System.out.println("hereeee");
     setConnection();
 
     String insertQuery =
@@ -67,7 +75,7 @@ public class StudentDAO implements IStudentDAO {
 
     try (PreparedStatement insertStudent =
         connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
-      connection.setAutoCommit(false);
+
       insertStudent.setString(1, entity.getName());
       insertStudent.setString(2, entity.getEmail());
       insertStudent.setInt(3, entity.getAge());
@@ -77,14 +85,13 @@ public class StudentDAO implements IStudentDAO {
 
       ResultSet keys = insertStudent.getGeneratedKeys();
       if (keys.next()) {
+        LOGGER.info(keys.getLong(1));
         entity.setId(keys.getLong(1));
       } else {
         throw new ElementNotFoundException("The id wasn't generated");
       }
 
       keys.close();
-
-      connection.commit();
 
     } catch (SQLException | ElementNotFoundException throwables) {
       LOGGER.error(throwables.getMessage());
@@ -178,14 +185,31 @@ public class StudentDAO implements IStudentDAO {
     return student;
   }
 
-  private static void setConnection() {
+  private void subscribeToNotifications() {
+    ConnectionPool.getInstance().addListener(this);
+  }
+
+  private void setConnection() {
 
     try {
       connection = ConnectionPool.getInstance().getConnection();
-    } catch (FullConnectionPoolException e) {
+    } catch (FullConnectionPoolException | SQLException | IOException e) {
       LOGGER.error(e.getMessage());
       LOGGER.info("Trying again...");
-      setConnection();
+      try {
+        // Waiting to the notification for try to get the connection again.
+        this.wait();
+        this.setConnection();
+      } catch (InterruptedException ex) {
+        LOGGER.error(ex);
+      }
     }
+  }
+
+  // Notifying about the free connection
+  @Override
+  public void notification() {
+    LOGGER.info("There is an available connection.");
+    notify();
   }
 }

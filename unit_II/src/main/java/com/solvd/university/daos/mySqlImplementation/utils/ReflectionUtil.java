@@ -80,7 +80,8 @@ public class ReflectionUtil<T> {
     return declaredObjectFields;
   }
 
-  public ConcurrentHashMap<String, String> reflectionClass(ConcurrentHashMap<String, String> classFields) {
+  public ConcurrentHashMap<String, String> reflectionClass(
+      ConcurrentHashMap<String, String> classFields) {
     Field[] fields;
 
     fields = instance.getDeclaredFields();
@@ -98,21 +99,22 @@ public class ReflectionUtil<T> {
     // Get the declared fields and put in a map, key = type of field and value = identifier of the
     // field
     Arrays.stream(fields).forEach(p -> classFields.put(p.getName(), p.getType()));
-    classFields.forEach((k, v) -> System.out.println("Field: " + k + "Type: " +  v));
+    classFields.forEach((k, v) -> System.out.println("Field: " + k + "Type: " + v));
 
-    classFields.forEach((k, v) ->
-            System.out.println(v.equals("java.lang.Long")));
-
+    classFields.forEach((k, v) -> System.out.println(v.equals("java.lang.Long")));
   }
 
-  public void castValues(ConcurrentHashMap<String, String> declaredObjectFields, ConcurrentHashMap<String, Object> objectFields) {
+  public void castValues(
+      ConcurrentHashMap<String, String> declaredObjectFields,
+      ConcurrentHashMap<String, Object> objectFields) {
+
     for (String identifier : declaredObjectFields.keySet()) {
       for (String field : objectFields.keySet()) {
         if (identifier.equals(field)) {
           switch (declaredObjectFields.get(identifier)) {
             case "java.lang.Long":
               Integer integerValue = (Integer) objectFields.get(field);
-              Long longObject =  Long.valueOf(integerValue);
+              Long longObject = Long.valueOf(integerValue);
               objectFields.put(identifier, longObject);
               break;
             case "java.util.Date":
@@ -133,7 +135,7 @@ public class ReflectionUtil<T> {
     T resultObject = null;
     Constructor<T>[] constructors = (Constructor<T>[]) instance.getConstructors();
 
-    //It is instantiating an object with the default constructor.
+    // It is instantiating an object with the default constructor.
     if (constructors.length != 0) {
       for (Constructor<T> constructor : constructors) {
         try {
@@ -146,7 +148,8 @@ public class ReflectionUtil<T> {
         }
       }
     } else {
-      throw new PrivateConstructorsException("We can not initialize the class, because it has private constructors");
+      throw new PrivateConstructorsException(
+          "We can not initialize the class, because it has private constructors");
     }
     return resultObject;
   }
@@ -160,6 +163,7 @@ public class ReflectionUtil<T> {
       }
     }
   }
+
   public Long getId() {
     return id;
   }

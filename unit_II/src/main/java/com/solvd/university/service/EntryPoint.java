@@ -21,7 +21,7 @@ public class EntryPoint {
           LOGGER.error(e.getMessage());
       }*/
 
-      service.entityToWork(DEAN);
+     // service.entityToWork(DEAN);
   }
 
 
