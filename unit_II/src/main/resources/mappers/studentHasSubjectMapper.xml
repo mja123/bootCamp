@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.university.daos.interfaces.IStudentHasSubjectDAO">
+    <resultMap type="com.solvd.university.model.StudentHasSubject" id="studentHasSubjectResultMap" autoMapping="false">
+        <id column="id" property="id"/>
+        <!--columnName is the name in the resultSet, not the name in the column (query with as operator)-->
+        <result column="students_id" property="studentId"/>
+        <result column="subjects_id" property="subjectId"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="deleted_at" property="deletedAt"/>
+        <!--to complex elements we need to use association tag and specified the  resultMap tag with the namespace-->
+    </resultMap>
+    <resultMap type="com.solvd.university.model.StudentHasSubject" id="studentsAndSubjectsJoinResultMap"
+               autoMapping="false">
+        <id column="id" property="id"/>
+        <association property="subjects" resultMap="subjectResultMap"/>
+
+        <!--columnName is the name in the resultSet, not the name in the column (query with as operator)-->
+    </resultMap>
+
+    <insert id="saveEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO students_has_subjects (students_id, subjects_id) VALUES (#{studentId}, #{subjectId});
+    </insert>
+    <select id="getEntityByID" resultMap="studentHasSubjectResultMap">
+        SELECT * FROM students_has_subjects WHERE id = #{id};
+    </select>
+    <update id="updateEntity">
+        UPDATE students_has_subjects SET students_id = #{studentId}, subjects_id = #{subjectId} WHERE id = #{id};
+    </update>
+    <delete id="removeEntity">
+        DELETE students_has_subjects WHERE id = #{id};
+    </delete>
+</mapper>

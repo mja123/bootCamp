@@ -14,14 +14,15 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.sql.*;
 
-public class DeanDAO implements IDeanDAO, IListener {
+public class DeanDAO extends BaseDAO<Dean> implements IDeanDAO, IListener {
 
   private static final Logger LOGGER = LogManager.getLogger(DeanDAO.class);
   private final String TABLE_NAME = "deans";
   private Connection connection = null;
 
   //Subscribing to the ConnectionPool's notification list.
-  public DeanDAO() {
+  public DeanDAO(String tableName, String className) {
+    super(tableName, className);
     this.subscribeToNotifications();
   }
 

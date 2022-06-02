@@ -7,43 +7,27 @@ import com.solvd.university.model.Dean;
 import com.solvd.university.model.EntityBuilder;
 import com.solvd.university.service.DeanService;
 import com.solvd.university.service.DegreeService;
+import com.solvd.university.service.ServiceFactory;
 import com.solvd.university.service.StudentService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+    //TODO:
+    // 1) FIX THE PROBLEM IN THE SAVE METHOD, THE ID IS AUTOINCREMENT BUT THE RECORD DOESN'T APPEAR
+    // 2) ADD BASE CRUD METHODS IN THE ISERVICE.
+    // 3) IN THE MODELS AND BASEDAO CLASS, CHANGE THE FOREIGN KEY FOR THE CLASS OBJECT
+    // 4) CREATE THE REST OF THE MAPPERS
+    // 5) CREATE THE ABSTRACT FACTORY
+    // 6) IMPLEMENT THE REST OF THE METHODS IN THE DAOS.
 public class MainController {
-  //TODO: ADD LISTENER PATTERN AND TRY TO IMPLEMENT THE NOTIFY AND WAIT IN THE DAO.
+
   private static final Logger LOGGER = LogManager.getLogger(MainController.class);
 
   public static void main(String[] args) {
 
-    StudentService studentService = new StudentService();
-
-    studentService.getStudent(43L);
-    //TODO: FIX THE PROBLEM IN THE SAVE METHOD, THE ID IS AUTOINCREMENT BUT THE RECORD DOESN'T APPEAR
-    //region Concurrent tests
-/*    DeanService deanService = new DeanService();
-    DeanService deanService2 = new DeanService();
-    DeanService deanService3 = new DeanService();
-    DeanService deanService4 = new DeanService();
-    DeanService deanService5 = new DeanService();
-    DeanService deanService6 = new DeanService();
-    DeanService deanService7 = new DeanService();
-    DeanService deanService8 = new DeanService();
-    DeanService deanService9 = new DeanService();
-    DeanService deanService10 = new DeanService();
-
-    deanService.run();
-    deanService2.run();
-    deanService3.run();
-    deanService4.run();
-    deanService5.run();
-    deanService6.run();
-    deanService7.run();
-    deanService8.run();
-    deanService9.run();
-    deanService10.run();*/
-    //endregion
+    ServiceFactory serviceFactory = new ServiceFactory();
+    StudentService studentService = (StudentService) serviceFactory.getService("Student", "BaseDAO");
+    studentService.getEntityById(9L);
 
 
   }

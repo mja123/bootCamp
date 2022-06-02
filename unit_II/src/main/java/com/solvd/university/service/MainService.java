@@ -35,17 +35,6 @@ public class MainService <T>{
         }
     }
 
-    public IService<T> getEntityService(EEntities entity) {
-        switch (entity) {
-            case DEAN:
-                //return new DeanService();
-            case SUBJECT:
-                SubjectService subjectService = new SubjectService();
-                //subjectService.getSubject();
-
-        }
-        return null;
-    }
 
 
 

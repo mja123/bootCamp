@@ -2,30 +2,28 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.university.daos.interfaces.IStudentDAO">
-    <resultMap type="com.solvd.university.model.Student" id="studentResultMap" autoMapping="false">
+<mapper namespace="com.solvd.university.daos.interfaces.ISubjectDAO">
+    <resultMap type="com.solvd.university.model.Student" id="subjectResultMap" autoMapping="false">
         <id column="id" property="id"/>
         <!--columnName is the name in the resultSet, not the name in the column (query with as operator)-->
         <result column="name" property="name"/>
-        <result column="email" property="email"/>
-        <result column="age" property="age"/>
-        <result column="year_id_degree" property="yearsInDegree"/>
+        <result column="year" property="year"/>
+        <result column="biannual" property="biannual"/>
         <result column="created_at" property="createdAt"/>
         <result column="deleted_at" property="deletedAt"/>
         <!--to complex elements we need to use association tag and specified the  resultMap tag with the namespace-->
     </resultMap>
 
     <insert id="saveEntity" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO students (name, email, age, year_in_degree) VALUES (#{name}, #{email}, #{age}, #{yearsInDegree});
+        INSERT INTO subject (name,year, biannual) VALUES (#{name}, #{year}, #{biannual});
     </insert>
-    <select id="getEntityByID" resultMap="studentResultMap">
-        SELECT * FROM students WHERE id=#{id};
+    <select id="getEntityByID" resultMap="subjectResultMap">
+        SELECT * FROM subjects WHERE id = #{id};
     </select>
     <update id="updateEntity">
-        UPDATE students SET name = #{name}, email = #{email}, age = #{age}, year_in_degree = #{yearsInDegree} WHERE id =
-        #{id};
+        UPDATE subjects SET name = #{name}, year = #{year}, biannual = #{biannual} WHERE id = #{id};
     </update>
     <delete id="removeEntity">
-        DELETE students WHERE id = #{id};
+        DELETE subjects WHERE id = #{id};
     </delete>
 </mapper>

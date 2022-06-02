@@ -1,25 +1,34 @@
 package com.solvd.university.service;
 
+import com.solvd.university.daos.interfaces.ITeacherDAO;
+import com.solvd.university.daos.mySqlImplementation.BaseDAO;
 import com.solvd.university.daos.mySqlImplementation.TeacherDAO;
-import com.solvd.university.daos.mySqlImplementation.exceptions.ElementNotFoundException;
-import com.solvd.university.model.EntityBuilder;
+import com.solvd.university.model.Student;
 import com.solvd.university.model.Teacher;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class TeacherService {
-  public static void main(String[] args) {
-      TeacherDAO teacherDAO = new TeacherDAO("teachers", "com.solvd.university.model.Teacher");
-      Teacher teacher = EntityBuilder.teacher();
+public class TeacherService implements IService {
+  private static final Logger LOGGER = LogManager.getLogger(TeacherService.class);
+  private ITeacherDAO teacherDAO;
 
-      try {
-          teacherDAO.updateEntity(teacher);
-          //teacherDAO.removeEntity(2L);
-      } catch (ElementNotFoundException e) {
-          e.printStackTrace();
-      }
-  }
+    public TeacherService(String dao) {
+        setDAO(dao);
+    }
 
-
-
-
+    @Override
+    public void setDAO(String dao) {
+        switch (dao) {
+            case "myBatis":
+                teacherDAO = SqlSessionFactoryReference.getINSTANCE()
+                        .getSessionFactory()
+                        .openSession()
+                        .getMapper(ITeacherDAO.class);
+                break;
+            case "BaseDAO":
+                teacherDAO = new TeacherDAO("teachers", "com.solvd.university.model.Teacher");
+                break;
+        }
+    }
 
 }
